@@ -8,13 +8,21 @@
 import SwiftUI
 
 struct SongRowView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+  let song: Song
+  var body: some View {
+    HStack {
+      ThumbnailView(thumbnail: song.thumbnailURL)
+        .frame(width: 65, height: 85, alignment: .leading)
+      
+      Text(song.title)
+        .lineLimit(2)
+        .font(.body)
     }
+  }
 }
 
 struct SongRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        SongRowView()
-    }
+  static var previews: some View {
+    SongRowView(song: SongRepository.sampleSongs[0])
+  }
 }

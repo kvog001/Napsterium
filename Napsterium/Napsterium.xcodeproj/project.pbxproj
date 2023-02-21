@@ -18,6 +18,9 @@
 		AA946BF229A4F3B100D04463 /* VideoRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BF129A4F3B100D04463 /* VideoRowView.swift */; };
 		AA946BF429A4F5C600D04463 /* VideoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BF329A4F5C600D04463 /* VideoListViewModel.swift */; };
 		AA946BF629A4F6EB00D04463 /* YoutTubeAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BF529A4F6EB00D04463 /* YoutTubeAPIResponse.swift */; };
+		AA946BF829A505F800D04463 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BF729A505F800D04463 /* Song.swift */; };
+		AA946BFB29A5069600D04463 /* SongRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BFA29A5069600D04463 /* SongRepository.swift */; };
+		AA946BFD29A50B4400D04463 /* ThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BFC29A50B4400D04463 /* ThumbnailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +36,9 @@
 		AA946BF129A4F3B100D04463 /* VideoRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRowView.swift; sourceTree = "<group>"; };
 		AA946BF329A4F5C600D04463 /* VideoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListViewModel.swift; sourceTree = "<group>"; };
 		AA946BF529A4F6EB00D04463 /* YoutTubeAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutTubeAPIResponse.swift; sourceTree = "<group>"; };
+		AA946BF729A505F800D04463 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		AA946BFA29A5069600D04463 /* SongRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongRepository.swift; sourceTree = "<group>"; };
+		AA946BFC29A50B4400D04463 /* ThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +71,7 @@
 		AA946BD729A4F31900D04463 /* Napsterium */ = {
 			isa = PBXGroup;
 			children = (
+				AA946BF929A5068800D04463 /* Repository */,
 				AA946BE829A4F33E00D04463 /* ViewModel */,
 				AA946BE729A4F33500D04463 /* Model */,
 				AA946BE629A4F32A00D04463 /* Views */,
@@ -91,6 +98,7 @@
 				AA946BED29A4F39D00D04463 /* SongRowView.swift */,
 				AA946BEF29A4F3A700D04463 /* VideoListView.swift */,
 				AA946BF129A4F3B100D04463 /* VideoRowView.swift */,
+				AA946BFC29A50B4400D04463 /* ThumbnailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -100,6 +108,7 @@
 			children = (
 				AA946BE929A4F34F00D04463 /* Video.swift */,
 				AA946BF529A4F6EB00D04463 /* YoutTubeAPIResponse.swift */,
+				AA946BF729A505F800D04463 /* Song.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -110,6 +119,14 @@
 				AA946BF329A4F5C600D04463 /* VideoListViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		AA946BF929A5068800D04463 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				AA946BFA29A5069600D04463 /* SongRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,12 +200,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA946BDB29A4F31900D04463 /* ContentView.swift in Sources */,
+				AA946BFB29A5069600D04463 /* SongRepository.swift in Sources */,
 				AA946BEA29A4F34F00D04463 /* Video.swift in Sources */,
 				AA946BF429A4F5C600D04463 /* VideoListViewModel.swift in Sources */,
 				AA946BF029A4F3A700D04463 /* VideoListView.swift in Sources */,
+				AA946BF829A505F800D04463 /* Song.swift in Sources */,
 				AA946BD929A4F31900D04463 /* NapsteriumApp.swift in Sources */,
 				AA946BF629A4F6EB00D04463 /* YoutTubeAPIResponse.swift in Sources */,
 				AA946BF229A4F3B100D04463 /* VideoRowView.swift in Sources */,
+				AA946BFD29A50B4400D04463 /* ThumbnailView.swift in Sources */,
 				AA946BEC29A4F38A00D04463 /* SongListView.swift in Sources */,
 				AA946BEE29A4F39D00D04463 /* SongRowView.swift in Sources */,
 			);

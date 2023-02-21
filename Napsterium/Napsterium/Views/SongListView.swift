@@ -8,8 +8,19 @@
 import SwiftUI
 
 struct SongListView: View {
+  
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+      List {
+        Section {
+          ForEach(SongRepository.sampleSongs) { song in
+            SongRowView(song: song)
+          }
+        } header: {
+          Text("All songs")
+            .font(.title)
+        }
+      }
+      .listStyle(.plain)
     }
 }
 

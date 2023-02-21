@@ -11,61 +11,47 @@ struct VideoRowView: View {
   let video: Video
   let isExpanded: Bool
   
-    var body: some View {
-      VStack {
-        HStack {
-          AsyncImage(url: URL(string: video.thumbnailURL)) { phase in
-              switch phase {
-              case .empty:
-                  ProgressView()
-              case .success(let image):
-                  image
-                      .resizable()
-                      .aspectRatio(contentMode: .fit)
-              case .failure:
-                  Image(systemName: "photo")
-                      .resizable()
-                      .aspectRatio(contentMode: .fit)
-              @unknown default:
-                  EmptyView()
-              }
-          }
-          .frame(width: 180)
-          
-          Spacer()
-          
-          VStack(spacing: 20) {
-              Text("Title")
-              .font(.body)
-              Text("512M views . 1 year ago")
-              .font(.caption2)
-          }
-        }
+  var body: some View {
+    VStack {
+      HStack {
+        ThumbnailView(thumbnail: video.thumbnailURL)
+        .frame(width: 180)
         
-        if isExpanded {
-          Button {
-            print("TODO: add song to playlist")
-          } label: {
-            Text("Add song to playlist")
-              .foregroundColor(.white)
-          }
-          .padding()
-          .background(Color.black)
-          .clipShape(RoundedRectangle(cornerRadius: 10))
-
+        Spacer()
+        
+        VStack(spacing: 20) {
+          Text(video.title)
+            .lineLimit(2)
+            .font(.body)
+          Text("512M views . 1 year ago")
+            .font(.caption2)
         }
       }
+      
+      if isExpanded {
+        Button {
+          print("TODO: add song to playlist")
+        } label: {
+          Text("Add song to playlist")
+            .foregroundColor(.white)
+        }
+        .padding()
+        .background(Color.black)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        
+      }
     }
+  }
 }
 
 struct VideoRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        VideoRowView(
-          video: Video(id: "uuid",
-                       title: "Ojitos lindos bad bunny - james west singing till midnight",
-                       thumbnailURL: "",
-                       youtubeLink: ""),
-          isExpanded: true
-        )
-    }
+  static var previews: some View {
+    VideoRowView(
+      video: Video(id: "uuid",
+                   title: "Ojitos lindos bad bunny - james west singing till midnight",
+                   thumbnailURL: "",
+                   youtubeLink: ""),
+      isExpanded: true
+    )
+  }
 }
