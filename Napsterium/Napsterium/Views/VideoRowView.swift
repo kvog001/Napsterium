@@ -31,6 +31,7 @@ struct VideoRowView: View {
       if isExpanded {
         Button {
           print("TODO: add song to playlist")
+//          VideoListViewModel.downloadSong(youTubeLink: video.youtubeLink)
         } label: {
           Text("Add song to playlist")
             .foregroundColor(.white)

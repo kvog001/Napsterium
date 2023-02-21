@@ -22,14 +22,14 @@ class VideoListViewModel: ObservableObject {
             let decoder = JSONDecoder()
             let response = try decoder.decode(YouTubeAPIResponse.self, from: data)
             DispatchQueue.main.async {
-                self.videos = response.items.map {
-                  Video(
-                    id: $0.id.videoId,
-                    title: $0.snippet.title,
-                    thumbnailURL: $0.snippet.thumbnails.medium.url,
-                    youtubeLink: "https://www.youtube.com/watch?v=\($0.id.videoId)"
-                  )
-                }
+              self.videos = response.items.map {
+                Video(
+                  id: $0.id.videoId,
+                  title: $0.snippet.title,
+                  thumbnailURL: $0.snippet.thumbnails.medium.url,
+                  youtubeLink: "https://www.youtube.com/watch?v=\($0.id.videoId)"
+                )
+              }
             }
           } catch {
             print("Error decoding response: \(error)")
@@ -47,6 +47,35 @@ class VideoListViewModel: ObservableObject {
     } else {
       selection.insert(videoId)
     }
+  }
+  
+  func downloadSong(youTubeLink: String) {
+    guard let url = URL(string: "https://193.233.202.119:8080/helloworld") else {
+      print("Invalid URL")
+      return
+    }
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    let text = "Hello from iOS app, Napsterium!"
+    request.httpBody = text.data(using: .utf8)
+    
+    let config = URLSessionConfiguration.default
+    config.tlsMinimumSupportedProtocolVersion = .TLSv10
+
+    let session = URLSession(configuration: config)
+
+    let task = session.dataTask(with: request) { data, response, error in
+      if let error = error {
+        print("Error: \(error.localizedDescription)")
+      } else if let data = data, let response = response as? HTTPURLResponse {
+        print("Response status code: \(response.statusCode)")
+        // handle response data
+        print(data)
+      }
+    }
+    
+    task.resume()
   }
   
 }

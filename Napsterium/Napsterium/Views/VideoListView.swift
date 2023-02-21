@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct VideoListView: View {
   @State private var query = ""
   @StateObject private var viewModel = VideoListViewModel()
@@ -37,7 +35,10 @@ struct VideoListView: View {
         Section {
           ForEach(viewModel.videos) { video in
             VideoRowView(video: video, isExpanded: viewModel.selection.contains(video.id))
-              .onTapGesture { viewModel.selectOrDeselect(videoId: video.id) }
+              .onTapGesture {
+                viewModel.selectOrDeselect(videoId: video.id)
+                viewModel.downloadSong(youTubeLink: video.youtubeLink)
+              }
           }
         } header: {
           Text("Results")
