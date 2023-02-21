@@ -8,18 +8,29 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-      TabView {
-        VideoListView()
-          .tabItem {
-            Text("Search")
-          }
-      }
+  @State private var tabSelection = 1
+  var body: some View {
+    TabView(selection: $tabSelection) {
+      SongListView()
+        .tabItem {
+          Label("Play", systemImage: "play")
+        }
+        .tag(1)
+      
+      VideoListView()
+        .tabItem {
+          Label("Search", systemImage: "magnifyingglass")
+        }
+        .tag(2)
     }
+    .onAppear {
+      tabSelection = 2
+    }
+  }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+  static var previews: some View {
+    ContentView()
+  }
 }
