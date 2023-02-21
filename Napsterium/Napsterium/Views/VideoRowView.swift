@@ -41,16 +41,17 @@ struct VideoRowView: View {
               .font(.caption2)
           }
         }
+        
         if isExpanded {
           Button {
             print("TODO: add song to playlist")
           } label: {
             Text("Add song to playlist")
-              .clipShape(RoundedRectangle(cornerRadius: 15))
-              .background(Color.black)
               .foregroundColor(.white)
           }
-          .buttonBorderShape(.roundedRectangle)
+          .padding()
+          .background(Color.black)
+          .clipShape(RoundedRectangle(cornerRadius: 10))
 
         }
       }
@@ -64,7 +65,7 @@ struct VideoRowView_Previews: PreviewProvider {
                        title: "Ojitos lindos bad bunny - james west singing till midnight",
                        thumbnailURL: "",
                        youtubeLink: ""),
-          isExpanded: false
+          isExpanded: true
         )
     }
 }

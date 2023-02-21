@@ -17,23 +17,33 @@ struct VideoListView: View {
     VStack {
       HStack {
         TextField("Search videos", text: $query)
-          .padding()
+          .textFieldStyle(.roundedBorder)
+          .disableAutocorrection(true)
         
         Button {
           viewModel.search(query: query)
         } label: {
           Text("Search")
+            .foregroundColor(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
         }
-        
+        .buttonStyle(.borderedProminent)
+        .buttonBorderShape(.roundedRectangle(radius: 8))
+        .controlSize(.regular)
       }
+      .padding()
       
       List {
         Section {
           ForEach(viewModel.videos) { video in
-            VideoRowView(video: video, isExpanded: false)
+            VideoRowView(video: video, isExpanded: viewModel.selection.contains(video.id))
+              .onTapGesture { viewModel.selectOrDeselect(videoId: video.id) }
           }
+        } header: {
+          Text("Results")
         }
       }
+      .listStyle(.plain)
     }
   }
 }
