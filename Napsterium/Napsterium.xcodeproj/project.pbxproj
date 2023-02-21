@@ -1,0 +1,398 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA946BD929A4F31900D04463 /* NapsteriumApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BD829A4F31900D04463 /* NapsteriumApp.swift */; };
+		AA946BDB29A4F31900D04463 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BDA29A4F31900D04463 /* ContentView.swift */; };
+		AA946BDD29A4F31B00D04463 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA946BDC29A4F31B00D04463 /* Assets.xcassets */; };
+		AA946BE029A4F31B00D04463 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA946BDF29A4F31B00D04463 /* Preview Assets.xcassets */; };
+		AA946BEA29A4F34F00D04463 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BE929A4F34F00D04463 /* Video.swift */; };
+		AA946BEC29A4F38A00D04463 /* SongListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BEB29A4F38A00D04463 /* SongListView.swift */; };
+		AA946BEE29A4F39D00D04463 /* SongRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BED29A4F39D00D04463 /* SongRowView.swift */; };
+		AA946BF029A4F3A700D04463 /* VideoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BEF29A4F3A700D04463 /* VideoListView.swift */; };
+		AA946BF229A4F3B100D04463 /* VideoRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BF129A4F3B100D04463 /* VideoRowView.swift */; };
+		AA946BF429A4F5C600D04463 /* VideoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BF329A4F5C600D04463 /* VideoListViewModel.swift */; };
+		AA946BF629A4F6EB00D04463 /* YoutTubeAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BF529A4F6EB00D04463 /* YoutTubeAPIResponse.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AA946BD529A4F31900D04463 /* Napsterium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Napsterium.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA946BD829A4F31900D04463 /* NapsteriumApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NapsteriumApp.swift; sourceTree = "<group>"; };
+		AA946BDA29A4F31900D04463 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AA946BDC29A4F31B00D04463 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AA946BDF29A4F31B00D04463 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AA946BE929A4F34F00D04463 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		AA946BEB29A4F38A00D04463 /* SongListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListView.swift; sourceTree = "<group>"; };
+		AA946BED29A4F39D00D04463 /* SongRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongRowView.swift; sourceTree = "<group>"; };
+		AA946BEF29A4F3A700D04463 /* VideoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListView.swift; sourceTree = "<group>"; };
+		AA946BF129A4F3B100D04463 /* VideoRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRowView.swift; sourceTree = "<group>"; };
+		AA946BF329A4F5C600D04463 /* VideoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListViewModel.swift; sourceTree = "<group>"; };
+		AA946BF529A4F6EB00D04463 /* YoutTubeAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutTubeAPIResponse.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA946BD229A4F31900D04463 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AA946BCC29A4F31900D04463 = {
+			isa = PBXGroup;
+			children = (
+				AA946BD729A4F31900D04463 /* Napsterium */,
+				AA946BD629A4F31900D04463 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AA946BD629A4F31900D04463 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AA946BD529A4F31900D04463 /* Napsterium.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AA946BD729A4F31900D04463 /* Napsterium */ = {
+			isa = PBXGroup;
+			children = (
+				AA946BE829A4F33E00D04463 /* ViewModel */,
+				AA946BE729A4F33500D04463 /* Model */,
+				AA946BE629A4F32A00D04463 /* Views */,
+				AA946BD829A4F31900D04463 /* NapsteriumApp.swift */,
+				AA946BDA29A4F31900D04463 /* ContentView.swift */,
+				AA946BDC29A4F31B00D04463 /* Assets.xcassets */,
+				AA946BDE29A4F31B00D04463 /* Preview Content */,
+			);
+			path = Napsterium;
+			sourceTree = "<group>";
+		};
+		AA946BDE29A4F31B00D04463 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				AA946BDF29A4F31B00D04463 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AA946BE629A4F32A00D04463 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AA946BEB29A4F38A00D04463 /* SongListView.swift */,
+				AA946BED29A4F39D00D04463 /* SongRowView.swift */,
+				AA946BEF29A4F3A700D04463 /* VideoListView.swift */,
+				AA946BF129A4F3B100D04463 /* VideoRowView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AA946BE729A4F33500D04463 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AA946BE929A4F34F00D04463 /* Video.swift */,
+				AA946BF529A4F6EB00D04463 /* YoutTubeAPIResponse.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AA946BE829A4F33E00D04463 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				AA946BF329A4F5C600D04463 /* VideoListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AA946BD429A4F31900D04463 /* Napsterium */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA946BE329A4F31B00D04463 /* Build configuration list for PBXNativeTarget "Napsterium" */;
+			buildPhases = (
+				AA946BD129A4F31900D04463 /* Sources */,
+				AA946BD229A4F31900D04463 /* Frameworks */,
+				AA946BD329A4F31900D04463 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Napsterium;
+			productName = Napsterium;
+			productReference = AA946BD529A4F31900D04463 /* Napsterium.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AA946BCD29A4F31900D04463 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1310;
+				LastUpgradeCheck = 1310;
+				TargetAttributes = {
+					AA946BD429A4F31900D04463 = {
+						CreatedOnToolsVersion = 13.1;
+					};
+				};
+			};
+			buildConfigurationList = AA946BD029A4F31900D04463 /* Build configuration list for PBXProject "Napsterium" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AA946BCC29A4F31900D04463;
+			productRefGroup = AA946BD629A4F31900D04463 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AA946BD429A4F31900D04463 /* Napsterium */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA946BD329A4F31900D04463 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA946BE029A4F31B00D04463 /* Preview Assets.xcassets in Resources */,
+				AA946BDD29A4F31B00D04463 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA946BD129A4F31900D04463 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA946BDB29A4F31900D04463 /* ContentView.swift in Sources */,
+				AA946BEA29A4F34F00D04463 /* Video.swift in Sources */,
+				AA946BF429A4F5C600D04463 /* VideoListViewModel.swift in Sources */,
+				AA946BF029A4F3A700D04463 /* VideoListView.swift in Sources */,
+				AA946BD929A4F31900D04463 /* NapsteriumApp.swift in Sources */,
+				AA946BF629A4F6EB00D04463 /* YoutTubeAPIResponse.swift in Sources */,
+				AA946BF229A4F3B100D04463 /* VideoRowView.swift in Sources */,
+				AA946BEC29A4F38A00D04463 /* SongListView.swift in Sources */,
+				AA946BEE29A4F39D00D04463 /* SongRowView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AA946BE129A4F31B00D04463 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AA946BE229A4F31B00D04463 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AA946BE429A4F31B00D04463 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Napsterium/Preview Content\"";
+				DEVELOPMENT_TEAM = 3AKVPYXCTG;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.kvogli.Napsterium;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AA946BE529A4F31B00D04463 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Napsterium/Preview Content\"";
+				DEVELOPMENT_TEAM = 3AKVPYXCTG;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.kvogli.Napsterium;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AA946BD029A4F31900D04463 /* Build configuration list for PBXProject "Napsterium" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA946BE129A4F31B00D04463 /* Debug */,
+				AA946BE229A4F31B00D04463 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA946BE329A4F31B00D04463 /* Build configuration list for PBXNativeTarget "Napsterium" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA946BE429A4F31B00D04463 /* Debug */,
+				AA946BE529A4F31B00D04463 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AA946BCD29A4F31900D04463 /* Project object */;
+}
