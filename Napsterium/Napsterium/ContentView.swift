@@ -9,6 +9,12 @@ import SwiftUI
 
 struct ContentView: View {
   @State private var tabSelection = 1
+  
+  init() {
+    UITabBar.appearance().barTintColor = .white
+    UITabBar.appearance().backgroundColor = .yellow
+  }
+  
   var body: some View {
     TabView(selection: $tabSelection) {
       SongListView()
@@ -26,6 +32,7 @@ struct ContentView: View {
     .onAppear {
       tabSelection = 2
     }
+    .accentColor(.black) // color of tabItem icons and search button
   }
 }
 
