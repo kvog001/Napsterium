@@ -13,6 +13,7 @@ struct VideoListView: View {
   
   var body: some View {
     VStack {
+      // MARK: Search area
       HStack {
         TextField("Search videos", text: $query)
           .textFieldStyle(.roundedBorder)
@@ -31,6 +32,7 @@ struct VideoListView: View {
       }
       .padding()
       
+      // MARK: Results
       List {
         Section {
           ForEach(viewModel.videos) { video in

@@ -11,7 +11,7 @@ struct ContentView: View {
   @State private var tabSelection = 1
   
   init() {
-    UITabBar.appearance().barTintColor = .white
+    UITabBar.appearance().barTintColor = .yellow
     UITabBar.appearance().backgroundColor = .yellow
   }
   
