@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SongRowView: View {
+  let alertButtonDelete = "Remove"
+  @State private var showDeleteAlert = false
   let song: Song
   var body: some View {
     HStack {
@@ -23,7 +25,16 @@ struct SongRowView: View {
         .foregroundColor(.yellow)
         .padding()
         .onTapGesture {
+          showDeleteAlert = true
           print("Heart of \(song.title) was pressed!")
+        }
+        .alert(isPresented: $showDeleteAlert) {
+          Alert(
+            title: Text("Remove song?"),
+            message: Text("Press \(alertButtonDelete) to remove song from your playlist"),
+            primaryButton: .destructive(Text(alertButtonDelete)),
+            secondaryButton: .cancel()
+          )
         }
     }
     .frame(alignment: .leading)
