@@ -31,7 +31,7 @@ struct SongListView: View {
               gradient: Gradient(colors: [Color.yellow, Color.black]),
               startPoint: .top, endPoint: .bottom
             )
-              .scaleEffect(7)
+              .scaleEffect(10)
             Image("paradise")
               .resizable()
               .frame(width: height,
@@ -47,17 +47,15 @@ struct SongListView: View {
           ForEach(SongRepository.sampleSongs) { song in
             ZStack {
               RoundedRectangle(cornerRadius: 10)
-                .fill(.brown)
+                .fill(Color.black.opacity(0.0001))
               SongRowView(song: song)
             }
-            .padding(EdgeInsets(top: 0, leading: 7, bottom: 0, trailing: 7))
+            .padding(EdgeInsets(top: 10, leading: 7, bottom: 0, trailing: 7))
             .onTapGesture {
               print("\(song.title) was pressed")
             }
             .onLongPressGesture(minimumDuration: 0.5, maximumDistance: 10) {
               print("onLongPress detected - todo")
-            } onPressingChanged: { pressed in
-              print("pressed = \(pressed)")
             }
 
           }

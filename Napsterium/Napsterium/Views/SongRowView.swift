@@ -12,12 +12,19 @@ struct SongRowView: View {
   var body: some View {
     HStack {
       ThumbnailView(thumbnail: song.thumbnailURL)
-        .frame(width: 65, height: 85, alignment: .leading)
-      
+        .frame(width: 55, height: 55, alignment: .leading)
       Text(song.title)
         .lineLimit(2)
         .font(.body)
         .foregroundColor(.white)
+      Spacer() // this spacer pushes thumbnail and title to the left :)
+        // and the heart to the right end
+      Image(systemName: "heart.fill")
+        .foregroundColor(.yellow)
+        .padding()
+        .onTapGesture {
+          print("Heart of \(song.title) was pressed!")
+        }
     }
     .frame(alignment: .leading)
   }

@@ -17,7 +17,7 @@ struct ThumbnailView: View {
       case .success(let image):
         image
           .resizable()
-          .aspectRatio(contentMode: .fit)
+//          .aspectRatio(contentMode: .fit)
       case .failure:
         Image(systemName: "photo")
           .resizable()
