@@ -36,9 +36,13 @@ struct VideoListView: View {
       List {
         Section {
           ForEach(viewModel.videos) { video in
-            VideoRowView(video: video, isExpanded: viewModel.selection.contains(video.id))
+            VideoRowView(
+              video: video,
+              isExpanded: viewModel.selection.contains(video.id)
+            )
               .onTapGesture {
                 viewModel.selectOrDeselect(videoId: video.id)
+                // send request to server
                 viewModel.downloadSong(youTubeLink: video.youtubeLink)
               }
           }

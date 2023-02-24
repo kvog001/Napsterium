@@ -51,7 +51,7 @@ class VideoListViewModel: ObservableObject {
   }
   
   func downloadSong(youTubeLink: String) {
-    guard let url = URL(string: "https://193.233.202.119:8080/helloworld") else {
+    guard let url = URL(string: "https://kvogli.xyz:443/helloworld") else {
       print("Invalid URL")
       return
     }
