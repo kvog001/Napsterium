@@ -17,7 +17,9 @@ struct SongRowView: View {
       Text(song.title)
         .lineLimit(2)
         .font(.body)
+        .foregroundColor(.white)
     }
+    .frame(alignment: .leading)
   }
 }
 

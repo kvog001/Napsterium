@@ -9,18 +9,65 @@ import SwiftUI
 
 struct SongListView: View {
   
+  let bgColor = Color(hue: 0.0, saturation: 0.0, brightness: 0.071)
+  
+  func getOffsetY(reader: GeometryProxy) -> CGFloat {
+    let offsetY: CGFloat = -reader.frame(in: .named("scrollView")).minY
+    if offsetY < 0 {
+      return offsetY / 1.3
+    }
+    return offsetY
+  }
+  
     var body: some View {
-      List {
+      ScrollView(showsIndicators: true) {
+        GeometryReader { reader in
+          let offsetY = getOffsetY(reader: reader)
+          let height: CGFloat = (reader.size.height - offsetY) + offsetY / 3
+          let minHeight: CGFloat = 120
+          let opacity = (height - minHeight) / (reader.size.height - minHeight)
+          ZStack {
+            LinearGradient(
+              gradient: Gradient(colors: [Color.yellow, Color.black]),
+              startPoint: .top, endPoint: .bottom
+            )
+              .scaleEffect(7)
+            Image("paradise")
+              .resizable()
+              .frame(width: height,
+                     height: height)
+              .offset(y: offsetY)
+              .opacity(opacity)
+              .shadow(color: Color.black.opacity(0.5), radius: 30)
+          }
+        }
+        .frame(height: 200) // size of album
+        
         Section {
           ForEach(SongRepository.sampleSongs) { song in
-            SongRowView(song: song)
+            ZStack {
+              RoundedRectangle(cornerRadius: 10)
+                .fill(.brown)
+              SongRowView(song: song)
+            }
+            .padding(EdgeInsets(top: 0, leading: 7, bottom: 0, trailing: 7))
+            .onTapGesture {
+              print("\(song.title) was pressed")
+            }
+            .onLongPressGesture(minimumDuration: 0.5, maximumDistance: 10) {
+              print("onLongPress detected - todo")
+            } onPressingChanged: { pressed in
+              print("pressed = \(pressed)")
+            }
+
           }
         } header: {
           Text("All songs")
             .font(.title)
         }
       }
-      .listStyle(.plain)
+      .coordinateSpace(name: "scrollView")
+      .background(bgColor.ignoresSafeArea())
     }
 }
 
