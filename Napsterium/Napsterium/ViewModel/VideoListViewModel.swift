@@ -14,7 +14,8 @@ class VideoListViewModel: ObservableObject {
   @Published var selection: Set<String> = []
   
   func search(query: String) {
-    let urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(query)&key=\(apiKey)&maxResults=\(maxResults)"
+    let noWhitespaceQuery = query.replacingOccurrences(of: " ", with: "%20")
+    let urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(noWhitespaceQuery)&key=\(apiKey)&maxResults=\(maxResults)"
     if let url = URL(string: urlString) {
       URLSession.shared.dataTask(with: url) { data, response, error in
         if let data = data {
