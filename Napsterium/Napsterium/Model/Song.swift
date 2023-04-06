@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct Song: Identifiable {
-  var id: String
-  var title: String
+struct Song: Identifiable, Codable {
+  let id: String
+  let title: String
   var thumbnailURL: String
+  let mp3Data: Data
 }

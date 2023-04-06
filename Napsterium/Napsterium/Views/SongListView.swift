@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct SongListView: View {
-  
+  @Binding var songs: [Song]
+  @Environment(\.scenePhase) private var scenePhase
   let bgColor = Color(hue: 0.0, saturation: 0.0, brightness: 0.071)
+  let saveAction: ()->Void
   
   func getOffsetY(reader: GeometryProxy) -> CGFloat {
     let offsetY: CGFloat = -reader.frame(in: .named("scrollView")).minY
@@ -63,6 +65,11 @@ struct SongListView: View {
           Text("All songs")
             .font(.title)
         }
+        .onChange(of: scenePhase) { newPhase in
+          if newPhase == .inactive {
+            saveAction()
+          }
+        }
       }
       .coordinateSpace(name: "scrollView")
       .background(bgColor.ignoresSafeArea())
@@ -71,6 +78,6 @@ struct SongListView: View {
 
 struct SongListView_Previews: PreviewProvider {
     static var previews: some View {
-        SongListView()
+      SongListView(songs: .constant(SongRepository.sampleSongs), saveAction: {})
     }
 }

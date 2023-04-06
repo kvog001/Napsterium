@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
   @State private var tabSelection = 1
+  @StateObject private var store = SongStore()
   
   init() {
     UITabBar.appearance().barTintColor = .yellow
@@ -17,7 +18,13 @@ struct ContentView: View {
   
   var body: some View {
     TabView(selection: $tabSelection) {
-      SongListView()
+      SongListView(songs: $store.songs) {
+        SongStore.save(songs: store.songs) { result in
+            if case .failure(let error) = result {
+                fatalError(error.localizedDescription)
+            }
+        }
+      }
         .tabItem {
           Label("Play", systemImage: "play")
         }
@@ -30,6 +37,14 @@ struct ContentView: View {
         .tag(2)
     }
     .onAppear {
+      SongStore.load { result in
+          switch result {
+          case .failure(let error):
+              fatalError(error.localizedDescription)
+          case .success(let songs):
+              store.songs = songs
+          }
+      }
       tabSelection = 2
     }
     .accentColor(.black) // color of tabItem icons and search button

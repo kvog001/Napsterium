@@ -58,7 +58,7 @@ class VideoListViewModel: ObservableObject {
     
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
-    let text = "Hello from iOS app, Napsterium!"
+    let text = youTubeLink
     request.httpBody = text.data(using: .utf8)
     
     let config = URLSessionConfiguration.default
