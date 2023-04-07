@@ -49,7 +49,7 @@ class SongRepository: ObservableObject {
         
         // Save the song to file system
         let song = Song(id: ytTitle, title: ytTitle, thumbnailURL: ytThumbnail, mp3Data: data)
-        self.songManager.saveSong(song)
+        self.addSong(song)
       }
     }
     
