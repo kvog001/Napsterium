@@ -9,9 +9,10 @@ import SwiftUI
 
 struct SongListView: View {
   @Binding var songs: [Song]
+  @ObservedObject var songSelection: SongSelection
   @Environment(\.scenePhase) private var scenePhase
   let bgColor = Color(hue: 0.0, saturation: 0.0, brightness: 0.071)
-  let saveAction: ()->Void
+//  let saveAction: ()->Void
   
   func getOffsetY(reader: GeometryProxy) -> CGFloat {
     let offsetY: CGFloat = -reader.frame(in: .named("scrollView")).minY
@@ -46,7 +47,7 @@ struct SongListView: View {
         .frame(height: 200) // size of album
         
         Section {
-          ForEach(SongRepository.sampleSongs) { song in
+          ForEach(songs) { song in
             ZStack {
               RoundedRectangle(cornerRadius: 10)
                 .fill(Color.black.opacity(0.0001))
@@ -55,6 +56,7 @@ struct SongListView: View {
             .padding(EdgeInsets(top: 10, leading: 7, bottom: 0, trailing: 7))
             .onTapGesture {
               print("\(song.title) was pressed")
+              songSelection.select(song: song)
             }
             .onLongPressGesture(minimumDuration: 0.5, maximumDistance: 10) {
               print("onLongPress detected - todo")
@@ -65,11 +67,11 @@ struct SongListView: View {
           Text("All songs")
             .font(.title)
         }
-        .onChange(of: scenePhase) { newPhase in
-          if newPhase == .inactive {
-            saveAction()
-          }
-        }
+//        .onChange(of: scenePhase) { newPhase in
+//          if newPhase == .inactive {
+//            saveAction()
+//          }
+//        }
       }
       .coordinateSpace(name: "scrollView")
       .background(bgColor.ignoresSafeArea())
@@ -78,6 +80,8 @@ struct SongListView: View {
 
 struct SongListView_Previews: PreviewProvider {
     static var previews: some View {
-      SongListView(songs: .constant(SongRepository.sampleSongs), saveAction: {})
+      let songSelection = SongSelection()
+      SongListView(songs: .constant(SongRepository.sampleSongs),
+                   songSelection: songSelection)
     }
 }

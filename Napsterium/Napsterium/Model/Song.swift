@@ -7,9 +7,14 @@
 
 import Foundation
 
-struct Song: Identifiable, Codable {
+/// `id: String` is the YouTube id of the video
+struct Song: Identifiable, Codable, Equatable {
   let id: String
   let title: String
   var thumbnailURL: String
   let mp3Data: Data
+  
+  static func == (lhs: Song, rhs: Song) -> Bool {
+    return lhs.id == rhs.id
+  }
 }

@@ -10,6 +10,7 @@ import SwiftUI
 struct VideoListView: View {
   @State private var query = ""
   @StateObject private var viewModel = VideoListViewModel()
+  @ObservedObject var songRepository: SongRepository
   
   var body: some View {
     VStack {
@@ -43,7 +44,7 @@ struct VideoListView: View {
               .onTapGesture {
                 viewModel.selectOrDeselect(videoId: video.id)
                 // send request to server
-                viewModel.downloadSong(youTubeLink: video.youtubeLink)
+                songRepository.downloadSong(youTubeLink: video.youtubeLink, ytThumbnail: video.thumbnailURL, ytTitle: video.title)
               }
           }
         } header: {
@@ -58,6 +59,6 @@ struct VideoListView: View {
 
 struct VideoListView_Previews: PreviewProvider {
   static var previews: some View {
-    VideoListView()
+    VideoListView(songRepository: SongRepository())
   }
 }

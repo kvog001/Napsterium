@@ -1,5 +1,5 @@
 //
-//  MiniPlayer.swift
+//  SongPlayer.swift
 //  Napsterium
 //
 //  Created by Kamber Vogli on 06.04.23.
@@ -8,13 +8,15 @@
 import SwiftUI
 import AVKit
 
-struct MiniPlayer: View {
+struct SongPlayer: View {
   var animation: Namespace.ID
   @Binding var expand: Bool
   var height = UIScreen.main.bounds.height / 3
   var safeArea = UIApplication.shared.windows.first?.safeAreaInsets
   @State var isPlaying = false
-  var audioPlayer: AVAudioPlayer?
+  @ObservedObject var songSelection: SongSelection
+  @State var audioPlayer: AVAudioPlayer?
+  var song = SongRepository.sampleSongs.first
   
   var body: some View {
     VStack {
@@ -62,6 +64,10 @@ struct MiniPlayer: View {
                 .font(.title2)
                 .foregroundColor(.primary)
             }
+          }
+          .onReceive(songSelection.$selectedSong) { song in
+            guard let song = song else { return }
+            updateAudioPlayer(with: song)
           }
           
           Button {
@@ -120,30 +126,20 @@ struct MiniPlayer: View {
   }
   
   func playAudio() {
-    guard let url = Bundle.main.url(forResource: "filename", withExtension: "mp3") else {
-            print("Audio file not found")
-            return
-        }
-        
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
-            try AVAudioSession.sharedInstance().setActive(true)
-            
-            audioPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
-            
-            guard let player = audioPlayer else {
-                print("Audio player not initialized")
-                return
-            }
-            
-            player.play()
-            isPlaying = true
-        } catch let error {
-            print(error.localizedDescription)
-        }
+    guard let player = audioPlayer else { return }
+    player.play()
   }
   
   func pauseAudio() {
-    
+    guard let player = audioPlayer else { return }
+    player.pause()
+  }
+  
+  private func updateAudioPlayer(with song: Song) {
+    do {
+      audioPlayer = try AVAudioPlayer(data: song.mp3Data)
+    } catch {
+      print("Error playing audio: \(error.localizedDescription)")
+    }
   }
 }

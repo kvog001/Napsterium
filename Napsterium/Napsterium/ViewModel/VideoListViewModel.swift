@@ -14,8 +14,8 @@ class VideoListViewModel: ObservableObject {
   @Published var selection: Set<String> = []
   
   func search(query: String) {
-    let noWhitespaceQuery = query.replacingOccurrences(of: " ", with: "%20")
-    let urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(noWhitespaceQuery)&key=\(apiKey)&maxResults=\(maxResults)"
+    let queryWithNoWhitespaces = query.replacingOccurrences(of: " ", with: "%20")
+    let urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(queryWithNoWhitespaces)&key=\(apiKey)&maxResults=\(maxResults)"
     if let url = URL(string: urlString) {
       URLSession.shared.dataTask(with: url) { data, response, error in
         if let data = data {
@@ -48,35 +48,6 @@ class VideoListViewModel: ObservableObject {
     } else {
       selection.insert(videoId)
     }
-  }
-  
-  func downloadSong(youTubeLink: String) {
-    guard let url = URL(string: "https://kvogli.xyz:443/helloworld") else {
-      print("Invalid URL")
-      return
-    }
-    
-    var request = URLRequest(url: url)
-    request.httpMethod = "POST"
-    let text = youTubeLink
-    request.httpBody = text.data(using: .utf8)
-    
-    let config = URLSessionConfiguration.default
-    config.tlsMinimumSupportedProtocolVersion = .TLSv10
-
-    let session = URLSession(configuration: config)
-
-    let task = session.dataTask(with: request) { data, response, error in
-      if let error = error {
-        print("Error: \(error.localizedDescription)")
-      } else if let data = data, let response = response as? HTTPURLResponse {
-        print("Response status code: \(response.statusCode)")
-        // handle response data
-        print(data)
-      }
-    }
-    
-    task.resume()
   }
   
 }
