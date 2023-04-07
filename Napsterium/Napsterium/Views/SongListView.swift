@@ -48,7 +48,7 @@ struct SongListView: View {
       .frame(height: 200) // size of album picture
       
       Section {
-        ForEach(songRepository.songs) { song in
+        ForEach(songRepository.sortedSongsByDate) { song in
           ZStack {
             RoundedRectangle(cornerRadius: 10)
               .fill(Color.black.opacity(0.0001))

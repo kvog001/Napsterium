@@ -13,6 +13,7 @@ struct Song: Identifiable, Codable, Equatable {
   let title: String
   var thumbnailURL: String
   let mp3Data: Data
+  var dateAdded: Date
   
   static func == (lhs: Song, rhs: Song) -> Bool {
     return lhs.id == rhs.id
