@@ -31,17 +31,31 @@ struct SongPlayer: View {
         if expand {
           Spacer(minLength: 0)
         }
-        Image("paradise")
-          .resizable()
-          .aspectRatio(contentMode: .fill)
-          .frame(width: expand ? height : 55, height: expand ? height : 55)
-          .cornerRadius(5)
+        if let selectedSong = songSelection.selectedSong {
+          ThumbnailView(thumbnail: selectedSong.thumbnailURL)
+            .aspectRatio(contentMode: .fill)
+            .frame(width: expand ? height : 55, height: expand ? height : 55)
+            .cornerRadius(5)
+        } else {
+          Image("paradise")
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .frame(width: expand ? height : 55, height: expand ? height : 55)
+            .cornerRadius(5)
+        }
         
         if !expand {
-          Text("Lady Gaga")
-            .font(.title2)
-            .fontWeight(.bold)
-            .matchedGeometryEffect(id: "Label", in: animation)
+          if let selectedSong = songSelection.selectedSong {
+            Text(selectedSong.title)
+              .font(.title2)
+              .fontWeight(.bold)
+              .matchedGeometryEffect(id: "Label", in: animation)
+          } else {
+            Text("Lady Gaga")
+              .font(.title2)
+              .fontWeight(.bold)
+              .matchedGeometryEffect(id: "Label", in: animation)
+          }
         }
         
         Spacer(minLength: 0)

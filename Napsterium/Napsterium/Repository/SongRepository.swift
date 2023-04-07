@@ -47,7 +47,7 @@ class SongRepository: ObservableObject {
       } else if let data = data, let response = response as? HTTPURLResponse {
         print("Response status code: \(response.statusCode)")
         
-        // Save the song to file system
+        // Save the song to file system and to the repository
         let song = Song(id: ytTitle, title: ytTitle, thumbnailURL: ytThumbnail, mp3Data: data)
         DispatchQueue.main.async {
           self.addSong(song)
