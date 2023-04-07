@@ -49,7 +49,9 @@ class SongRepository: ObservableObject {
         
         // Save the song to file system
         let song = Song(id: ytTitle, title: ytTitle, thumbnailURL: ytThumbnail, mp3Data: data)
-        self.addSong(song)
+        DispatchQueue.main.async {
+          self.addSong(song)
+        }
       }
     }
     
