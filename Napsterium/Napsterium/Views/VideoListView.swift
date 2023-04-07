@@ -15,7 +15,7 @@ struct VideoListView: View {
     VStack {
       // MARK: Search area
       HStack {
-        TextField("Search videos", text: $query)
+        TextField("Search songs on YouTube", text: $query)
           .textFieldStyle(.roundedBorder)
           .disableAutocorrection(true)
         
