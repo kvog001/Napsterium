@@ -22,7 +22,7 @@ struct ContentView: View {
   var body: some View {
     ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
       TabView(selection: $tabSelection) {
-        SongListView(songs: $songRepository.songs, songSelection: songSelection)
+        SongListView(songRepository: songRepository, songSelection: songSelection)
 //        {
 //          songRepository.save(songs: songRepository.songs) { result in
 //              if case .failure(let error) = result {

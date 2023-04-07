@@ -11,6 +11,8 @@ struct SongRowView: View {
   let alertButtonDelete = "Remove"
   @State private var showDeleteAlert = false
   let song: Song
+  @ObservedObject var songRepository: SongRepository
+  
   var body: some View {
     HStack {
       ThumbnailView(thumbnail: song.thumbnailURL)
@@ -27,6 +29,7 @@ struct SongRowView: View {
         .onTapGesture {
           showDeleteAlert = true
           print("Heart of \(song.title) was pressed!")
+          songRepository.deleteSong(song)
         }
         .alert(isPresented: $showDeleteAlert) {
           Alert(
@@ -43,6 +46,6 @@ struct SongRowView: View {
 
 struct SongRowView_Previews: PreviewProvider {
   static var previews: some View {
-    SongRowView(song: SongRepository.sampleSongs[0])
+    SongRowView(song: SongRepository.sampleSongs[0], songRepository: SongRepository())
   }
 }
