@@ -16,7 +16,9 @@ struct SongPlayer: View {
   @State var isPlaying = false
   @ObservedObject var songSelection: SongSelection
   @State var audioPlayer: AVAudioPlayer?
+  let audioPlayerDelegate = AudioPlayerDelegate()
   var song = SongRepository.sampleSongs.first
+  
   
   var body: some View {
     VStack {
@@ -152,8 +154,28 @@ struct SongPlayer: View {
   private func updateAudioPlayer(with song: Song) {
     do {
       audioPlayer = try AVAudioPlayer(data: song.mp3Data)
+//      audioPlayer?.delegate = self
+      audioPlayer?.delegate = audioPlayerDelegate
+      audioPlayerDelegate.songFinishedPlaying = {
+        isPlaying = false
+      }
     } catch {
       print("Error playing audio: \(error.localizedDescription)")
     }
+  }
+  
+//  func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+//    if flag {
+//      // Audio player finished playing successfully
+//      isPlaying = false
+//    }
+//  }
+}
+
+class AudioPlayerDelegate: NSObject, AVAudioPlayerDelegate {
+  var songFinishedPlaying: (() -> Void)?
+
+  func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+    songFinishedPlaying?()
   }
 }

@@ -15,6 +15,7 @@ class SongRepository: ObservableObject {
     songs = songManager.loadSongs()
   }
   
+  /// sorts `songs` by `dateAdded`, latest first
   var sortedSongsByDate: [Song] {
     songs.sorted(by: { $0.dateAdded > $1.dateAdded })
   }
