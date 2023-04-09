@@ -9,123 +9,76 @@ import SwiftUI
 import AVKit
 
 struct AudioPlayerView: View {
-  var animation: Namespace.ID
-  @Binding var expand: Bool
-  var height = UIScreen.main.bounds.height / 3
-  var safeArea = UIApplication.shared.windows.first?.safeAreaInsets
-  @State var isPlaying = false
-  @ObservedObject var songSelection: SongSelection
-  @State var audioPlayer: AVAudioPlayer?
-  let audioPlayerDelegate = AudioPlayerDelegate()
-  var song = SongRepository.sampleSongs.first
   @State var value : Float = 0
+  @State var isPlaying = false
+  @State var audioPlayer: AVAudioPlayer?
+  @ObservedObject var songSelection: SongSelection
+  
+  var song = SongRepository.sampleSongs.first
+  let audioPlayerDelegate = AudioPlayerDelegate()
   
   var body: some View {
-    VStack(spacing: 5) {
-      Capsule()
-        .fill(Color.gray)
-        .frame(width: expand ? 60 : 0, height: expand ? 4 : 0)
-        .opacity(expand ? 1 : 0)
-        .padding(.top, expand ? safeArea?.top : 0)
-        .padding(.vertical, expand ? 30 : 0)
-      
+    VStack(spacing: 2) {
       // MARK: Image, title, play button, forward button
       HStack(spacing: 15) {
-        if expand {
-          Spacer(minLength: 0)
-        }
         if let selectedSong = songSelection.selectedSong {
           ThumbnailView(thumbnail: selectedSong.thumbnailURL)
             .aspectRatio(contentMode: .fill)
-            .frame(width: expand ? height : 55, height: expand ? height : 55)
+            .frame(width : 50, height : 50)
             .cornerRadius(5)
         } else {
           Image("paradise")
             .resizable()
             .aspectRatio(contentMode: .fill)
-            .frame(width: expand ? height : 55, height: expand ? height : 55)
+            .frame(width : 50, height: 50)
             .cornerRadius(5)
         }
         
-        if !expand {
-          if let selectedSong = songSelection.selectedSong {
-            Text(selectedSong.title)
-              .font(.callout)
-              .matchedGeometryEffect(id: "Label", in: animation)
-          } else {
-            Text("Lady Gaga")
-              .font(.title2)
-              .fontWeight(.bold)
-              .matchedGeometryEffect(id: "Label", in: animation)
-          }
+        if let selectedSong = songSelection.selectedSong {
+          Text(selectedSong.title)
+            .font(.callout)
+        } else {
+          Text("Lady Gaga")
+            .font(.title2)
+            .fontWeight(.bold)
         }
         
         Spacer(minLength: 0)
         
-        if !expand {
-          Button {
-            isPlaying = !isPlaying
-            if isPlaying {
-              playAudio()
-            } else {
-              pauseAudio()
-            }
-          } label: {
-            Image(systemName: isPlaying ? "pause.fill" : "play.fill")
-              .font(.title2)
-              .foregroundColor(.primary)
+        Button {
+          isPlaying = !isPlaying
+          if isPlaying {
+            playAudio()
+          } else {
+            pauseAudio()
           }
-          .onReceive(songSelection.$selectedSong) { song in
-            guard let song = song else { return }
-            updateAudioPlayer(with: song)
-          }
-          
-          Button {
-            
-          } label: {
-            Image(systemName: "forward.fill")
-              .font(.title2)
-              .foregroundColor(.primary)
-          }
+        } label: {
+          Image(systemName: isPlaying ? "pause.fill" : "play.fill")
+            .font(.title2)
+            .foregroundColor(.primary)
         }
+        .onReceive(songSelection.$selectedSong) { song in
+          guard let song = song else { return }
+          updateAudioPlayer(with: song)
+        }
+        
+        Button {
+          // TODO: next song
+        } label: {
+          Image(systemName: "forward.fill")
+            .font(.title2)
+            .foregroundColor(.primary)
+        }
+        
       }
       .padding(.horizontal)
-      
-      VStack {
-        HStack {
-          if expand {
-            Text("Lady Gaga")
-              .font(.title2)
-              .foregroundColor(.primary)
-              .fontWeight(.bold)
-              .matchedGeometryEffect(id: "Label", in: animation)
-          }
-          
-          Spacer(minLength: 0)
-          
-          Button {
-            
-          } label: {
-            Image(systemName: "ellipsis.circle")
-              .font(.title2)
-              .foregroundColor(.primary)
-          }
-        }
-        .padding()
-        
-        Spacer(minLength: 0)
-      }
-      // stretch effect
-      .frame(width: expand ? nil : 0, height: expand ? nil : 0)
-      .opacity(expand ? 1 : 0)
       
       // MARK: Progress bar of the playing song
       ProgressView(value: value, total: 240) //TODO: assign total from selectedSong.duration
         .progressViewStyle(LinearProgressViewStyle())
         .tint(.white)
-        .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+        .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
         .onAppear {
-          // 2
           Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             if isPlaying {
               self.value += 1
@@ -136,20 +89,16 @@ struct AudioPlayerView: View {
           self.value = 0
         }
     }
-    .frame(maxHeight: expand ? .infinity : 80)
+    .frame(maxHeight: 80)
     .background(
       VStack(spacing: 0) {
-        BlurView()
-        Divider()
+        RoundedRectangle(cornerRadius: 8)
+          .foregroundColor(.gray)
+          .padding(5)
       }
-        .onTapGesture {
-          withAnimation(.spring()) {
-            expand.toggle()
-          }
-        }
     )
     .ignoresSafeArea()
-    .offset(y: expand ? 0 : -48)
+    .offset(y: -48)
   }
   
   func playAudio() {
@@ -178,5 +127,11 @@ struct AudioPlayerView: View {
     } catch {
       print("Error playing audio: \(error.localizedDescription)")
     }
+  }
+}
+
+struct AudioPlayerView_Previews: PreviewProvider {
+  static var previews: some View {
+    AudioPlayerView(songSelection: SongSelection())
   }
 }
