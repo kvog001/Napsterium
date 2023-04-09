@@ -28,7 +28,6 @@ struct SongRowView: View {
         .padding()
         .onTapGesture {
           showDeleteAlert = true
-          print("Heart of \(song.title) was pressed!")
           // TODO: song is deleted before alert is confirmed: wait for alert to show up and user press delete otherwise ignore
           songRepository.deleteSong(song)
         }

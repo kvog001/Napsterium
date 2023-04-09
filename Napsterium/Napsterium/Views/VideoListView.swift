@@ -10,7 +10,8 @@ import SwiftUI
 struct VideoListView: View {
   @State private var query = ""
   @ObservedObject var songRepository: SongRepository
-  @StateObject private var viewModel = VideoListViewModel()
+  @StateObject private var youTubeService = YouTubeService()
+  @StateObject private var selectionVM = SelectionViewModel()
   
   var body: some View {
     VStack {
@@ -21,7 +22,7 @@ struct VideoListView: View {
           .disableAutocorrection(true)
         
         Button {
-          viewModel.search(query: query)
+          youTubeService.search(query: query)
         } label: {
           Text("Search")
             .foregroundColor(.white)
@@ -36,14 +37,14 @@ struct VideoListView: View {
       // MARK: Results
       List {
         Section {
-          ForEach(viewModel.videos) { video in
+          ForEach(youTubeService.videos) { video in
             VideoRowView(
               video: video,
-              isExpanded: viewModel.selection.contains(video.id),
+              isExpanded: selectionVM.selection.contains(video.id),
               songRepository: songRepository
             )
               .onTapGesture {
-                viewModel.selectOrDeselect(videoId: video.id)
+                selectionVM.selectOrDeselect(videoId: video.id)
               }
           }
         } header: {

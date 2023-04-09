@@ -56,7 +56,6 @@ struct SongListView: View {
           }
           .padding(EdgeInsets(top: 10, leading: 7, bottom: 0, trailing: 7))
           .onTapGesture {
-            print("\(song.title) was pressed")
             songSelection.select(song: song)
           }
           .onLongPressGesture(minimumDuration: 0.5, maximumDistance: 10) {

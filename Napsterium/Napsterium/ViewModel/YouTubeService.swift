@@ -7,15 +7,18 @@
 
 import Foundation
 
-class VideoListViewModel: ObservableObject {
+class YouTubeService: ObservableObject {
   let maxResults = 50
   let apiKey = "AIzaSyCUWYjsCsdFf3XjfbE71uiN0Ia2jlREtho"
   @Published var videos: [Video] = []
-  @Published var selection: Set<String> = []
   
   func search(query: String) {
     let queryWithNoWhitespaces = query.replacingOccurrences(of: " ", with: "%20")
     let urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(queryWithNoWhitespaces)&key=\(apiKey)&maxResults=\(maxResults)"
+    
+    let logDate = Date()
+    print("\(logDate): YouTube API Request URL: \(urlString)")
+    
     if let url = URL(string: urlString) {
       URLSession.shared.dataTask(with: url) { data, response, error in
         if let data = data {
@@ -41,13 +44,4 @@ class VideoListViewModel: ObservableObject {
       }.resume()
     }
   }
-  
-  func selectOrDeselect(videoId: String) {
-    if selection.contains(videoId) {
-      selection.remove(videoId)
-    } else {
-      selection.insert(videoId)
-    }
-  }
-  
 }
