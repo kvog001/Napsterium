@@ -11,6 +11,8 @@
 		AA1B554429E04BAE005EF7BE /* SongSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B554329E04BAE005EF7BE /* SongSelection.swift */; };
 		AA1B554829E0EFE7005EF7BE /* AudioPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B554729E0EFE7005EF7BE /* AudioPlayerDelegate.swift */; };
 		AA1B555529E3436C005EF7BE /* SelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B555429E3436C005EF7BE /* SelectionViewModel.swift */; };
+		AA1B555829E348E5005EF7BE /* GoogleAPIClientForRESTCore in Frameworks */ = {isa = PBXBuildFile; productRef = AA1B555729E348E5005EF7BE /* GoogleAPIClientForRESTCore */; };
+		AA1B555A29E348E5005EF7BE /* GoogleAPIClientForREST_YouTube in Frameworks */ = {isa = PBXBuildFile; productRef = AA1B555929E348E5005EF7BE /* GoogleAPIClientForREST_YouTube */; };
 		AA1B9E1929DF43C100E44EBF /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B9E1829DF43C100E44EBF /* AudioPlayerView.swift */; };
 		AA946BD929A4F31900D04463 /* NapsteriumApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BD829A4F31900D04463 /* NapsteriumApp.swift */; };
 		AA946BDB29A4F31900D04463 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BDA29A4F31900D04463 /* ContentView.swift */; };
@@ -57,6 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA1B555829E348E5005EF7BE /* GoogleAPIClientForRESTCore in Frameworks */,
+				AA1B555A29E348E5005EF7BE /* GoogleAPIClientForREST_YouTube in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,6 +166,10 @@
 			dependencies = (
 			);
 			name = Napsterium;
+			packageProductDependencies = (
+				AA1B555729E348E5005EF7BE /* GoogleAPIClientForRESTCore */,
+				AA1B555929E348E5005EF7BE /* GoogleAPIClientForREST_YouTube */,
+			);
 			productName = Napsterium;
 			productReference = AA946BD529A4F31900D04463 /* Napsterium.app */;
 			productType = "com.apple.product-type.application";
@@ -190,6 +198,9 @@
 				Base,
 			);
 			mainGroup = AA946BCC29A4F31900D04463;
+			packageReferences = (
+				AA1B555629E348E5005EF7BE /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */,
+			);
 			productRefGroup = AA946BD629A4F31900D04463 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -437,6 +448,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AA1B555629E348E5005EF7BE /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/google-api-objectivec-client-for-rest.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AA1B555729E348E5005EF7BE /* GoogleAPIClientForRESTCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA1B555629E348E5005EF7BE /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			productName = GoogleAPIClientForRESTCore;
+		};
+		AA1B555929E348E5005EF7BE /* GoogleAPIClientForREST_YouTube */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA1B555629E348E5005EF7BE /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			productName = GoogleAPIClientForREST_YouTube;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AA946BCD29A4F31900D04463 /* Project object */;
 }

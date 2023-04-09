@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "GoogleAPIClientForREST",
+        "repositoryURL": "https://github.com/google/google-api-objectivec-client-for-rest.git",
+        "state": {
+          "branch": null,
+          "revision": "260501c0425e95e038c65436436161266bf548e9",
+          "version": "3.0.0"
+        }
+      },
+      {
+        "package": "GTMSessionFetcher",
+        "repositoryURL": "https://github.com/google/gtm-session-fetcher.git",
+        "state": {
+          "branch": null,
+          "revision": "96d7cc73a71ce950723aa3c50ce4fb275ae180b8",
+          "version": "3.1.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

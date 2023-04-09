@@ -1,11 +1,13 @@
 //
-//  VideoListViewModel.swift
+//  YouTubeService.swift
 //  Napsterium
 //
 //  Created by Kamber Vogli on 21.02.23.
 //
 
 import Foundation
+import GoogleAPIClientForRESTCore
+import GoogleAPIClientForREST_YouTube
 
 class YouTubeService: ObservableObject {
   let maxResults = 50
@@ -41,7 +43,32 @@ class YouTubeService: ObservableObject {
         } else if let error = error {
           print("Error fetching videos: \(error)")
         }
-      }.resume()
+      }
+      .resume()
+    }
+  }
+  
+  let service = GTLRYouTubeService()
+  func foo() {
+    service.apiKey = "AIzaSyCUWYjsCsdFf3XjfbE71uiN0Ia2jlREtho"
+
+    // Set up the search query
+    let query = GTLRYouTubeQuery_SearchList.query(withPart: ["id","snippet"])
+    query.q = "swift programming"
+
+    // Execute the search request
+    service.executeQuery(query) { (_, result, error) in
+        guard error == nil else {
+            print("An error occurred: \(error!)")
+            return
+        }
+
+        // Process the search results
+        if let searchResult = result as? GTLRYouTube_SearchListResponse {
+            for video in searchResult.items ?? [] {
+                print("\(video.snippet?.title ?? "")")
+            }
+        }
     }
   }
 }

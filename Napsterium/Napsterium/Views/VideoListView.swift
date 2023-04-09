@@ -45,6 +45,7 @@ struct VideoListView: View {
             )
               .onTapGesture {
                 selectionVM.selectOrDeselect(videoId: video.id)
+                youTubeService.foo()
               }
           }
         } header: {
