@@ -10,6 +10,7 @@ import SwiftUI
 struct VideoRowView: View {
   let video: Video
   let isExpanded: Bool
+  @ObservedObject var songRepository: SongRepository
   
   var body: some View {
     VStack {
@@ -29,17 +30,18 @@ struct VideoRowView: View {
       }
       
       if isExpanded {
-        Button {
-          print("TODO: add song to playlist")
-//          VideoListViewModel.downloadSong(youTubeLink: video.youtubeLink)
-        } label: {
-          Text("Add song to playlist")
+        ZStack {
+          RoundedRectangle(cornerRadius: 10)
+            .frame(width: 150, height: 50)
+          Text("Add to playlist")
             .foregroundColor(.white)
         }
-        .padding()
-        .background(Color.black)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
-        
+        .onTapGesture {
+          print("Sending request to server for \(video.title) - \(video.youtubeLink)")
+          songRepository.downloadSong(youTubeLink: video.youtubeLink,
+                                      ytThumbnail: video.thumbnailURL,
+                                      ytTitle: video.title)
+        }
       }
     }
   }
@@ -52,7 +54,8 @@ struct VideoRowView_Previews: PreviewProvider {
                    title: "Ojitos lindos bad bunny - james west singing till midnight",
                    thumbnailURL: "",
                    youtubeLink: ""),
-      isExpanded: true
+      isExpanded: true,
+      songRepository: SongRepository()
     )
   }
 }

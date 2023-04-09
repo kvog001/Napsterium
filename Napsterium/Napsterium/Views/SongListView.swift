@@ -82,7 +82,6 @@ struct SongListView: View {
 struct SongListView_Previews: PreviewProvider {
   static var previews: some View {
     let songSelection = SongSelection()
-    SongListView(songRepository: SongRepository(),
-                 songSelection: songSelection)
+    SongListView(songRepository: SongRepository(), songSelection: songSelection)
   }
 }

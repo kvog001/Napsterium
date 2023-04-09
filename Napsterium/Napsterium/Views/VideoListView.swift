@@ -9,8 +9,8 @@ import SwiftUI
 
 struct VideoListView: View {
   @State private var query = ""
-  @StateObject private var viewModel = VideoListViewModel()
   @ObservedObject var songRepository: SongRepository
+  @StateObject private var viewModel = VideoListViewModel()
   
   var body: some View {
     VStack {
@@ -31,7 +31,7 @@ struct VideoListView: View {
         .buttonBorderShape(.roundedRectangle(radius: 8))
         .controlSize(.regular)
       }
-      .padding()
+      .padding(EdgeInsets(top: 10, leading: 15, bottom: 0, trailing: 10))
       
       // MARK: Results
       List {
@@ -39,12 +39,11 @@ struct VideoListView: View {
           ForEach(viewModel.videos) { video in
             VideoRowView(
               video: video,
-              isExpanded: viewModel.selection.contains(video.id)
+              isExpanded: viewModel.selection.contains(video.id),
+              songRepository: songRepository
             )
               .onTapGesture {
                 viewModel.selectOrDeselect(videoId: video.id)
-                // send request to server
-                songRepository.downloadSong(youTubeLink: video.youtubeLink, ytThumbnail: video.thumbnailURL, ytTitle: video.title)
               }
           }
         } header: {
