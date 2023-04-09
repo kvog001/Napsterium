@@ -32,6 +32,7 @@
 		AA1B554129E03CD6005EF7BE /* SongManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongManager.swift; sourceTree = "<group>"; };
 		AA1B554329E04BAE005EF7BE /* SongSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongSelection.swift; sourceTree = "<group>"; };
 		AA1B554729E0EFE7005EF7BE /* AudioPlayerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerDelegate.swift; sourceTree = "<group>"; };
+		AA1B554929E2D209005EF7BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AA1B9E1629DF40EC00E44EBF /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		AA1B9E1829DF43C100E44EBF /* SongPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongPlayer.swift; sourceTree = "<group>"; };
 		AA946BD529A4F31900D04463 /* Napsterium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Napsterium.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +82,7 @@
 		AA946BD729A4F31900D04463 /* Napsterium */ = {
 			isa = PBXGroup;
 			children = (
+				AA1B554929E2D209005EF7BE /* Info.plist */,
 				AA946BF929A5068800D04463 /* Repository */,
 				AA946BE829A4F33E00D04463 /* ViewModel */,
 				AA946BE729A4F33500D04463 /* Model */,
@@ -364,6 +366,7 @@
 				DEVELOPMENT_TEAM = 3AKVPYXCTG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Napsterium/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -393,6 +396,7 @@
 				DEVELOPMENT_TEAM = 3AKVPYXCTG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Napsterium/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
