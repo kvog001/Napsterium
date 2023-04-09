@@ -16,7 +16,7 @@ struct VideoRowView: View {
     VStack {
       HStack {
         ThumbnailView(thumbnail: video.thumbnailURL)
-        .frame(width: 180)
+          .frame(width: 180, height: 100)
         
         Spacer()
         

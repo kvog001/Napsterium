@@ -65,8 +65,11 @@ struct SongListView: View {
           
         }
       } header: {
-        Text("All songs")
+        Text("Your playlist")
+          .foregroundColor(.white)
+          .kerning(1.5)
           .font(.title)
+          .fontWeight(.semibold)
       }
       //        .onChange(of: scenePhase) { newPhase in
       //          if newPhase == .inactive {
