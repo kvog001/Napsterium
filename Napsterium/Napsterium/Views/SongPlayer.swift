@@ -18,10 +18,10 @@ struct SongPlayer: View {
   @State var audioPlayer: AVAudioPlayer?
   let audioPlayerDelegate = AudioPlayerDelegate()
   var song = SongRepository.sampleSongs.first
-  
+  @State var value : Float = 0
   
   var body: some View {
-    VStack {
+    VStack(spacing: 5) {
       Capsule()
         .fill(Color.gray)
         .frame(width: expand ? 60 : 0, height: expand ? 4 : 0)
@@ -29,6 +29,7 @@ struct SongPlayer: View {
         .padding(.top, expand ? safeArea?.top : 0)
         .padding(.vertical, expand ? 30 : 0)
       
+      // MARK: Image, title, play button, forward button
       HStack(spacing: 15) {
         if expand {
           Spacer(minLength: 0)
@@ -49,8 +50,7 @@ struct SongPlayer: View {
         if !expand {
           if let selectedSong = songSelection.selectedSong {
             Text(selectedSong.title)
-              .font(.title2)
-              .fontWeight(.bold)
+              .font(.callout)
               .matchedGeometryEffect(id: "Label", in: animation)
           } else {
             Text("Lady Gaga")
@@ -124,6 +124,20 @@ struct SongPlayer: View {
       // stretch effect
       .frame(width: expand ? nil : 0, height: expand ? nil : 0)
       .opacity(expand ? 1 : 0)
+      
+      // MARK: Progress bar of the playing song
+      ProgressView(value: value, total: 240) //TODO: assign total from selectedSong.duration
+        .progressViewStyle(LinearProgressViewStyle())
+        .tint(.white)
+        .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+        .onAppear {
+          // 2
+          Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+            if isPlaying {
+              self.value += 1
+            }
+          }
+        }
     }
     .frame(maxHeight: expand ? .infinity : 80)
     .background(
@@ -154,7 +168,6 @@ struct SongPlayer: View {
   private func updateAudioPlayer(with song: Song) {
     do {
       audioPlayer = try AVAudioPlayer(data: song.mp3Data)
-//      audioPlayer?.delegate = self
       audioPlayer?.delegate = audioPlayerDelegate
       audioPlayerDelegate.songFinishedPlaying = {
         isPlaying = false
@@ -162,20 +175,5 @@ struct SongPlayer: View {
     } catch {
       print("Error playing audio: \(error.localizedDescription)")
     }
-  }
-  
-//  func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-//    if flag {
-//      // Audio player finished playing successfully
-//      isPlaying = false
-//    }
-//  }
-}
-
-class AudioPlayerDelegate: NSObject, AVAudioPlayerDelegate {
-  var songFinishedPlaying: (() -> Void)?
-
-  func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-    songFinishedPlaying?()
   }
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		AA1B554229E03CD6005EF7BE /* SongManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B554129E03CD6005EF7BE /* SongManager.swift */; };
 		AA1B554429E04BAE005EF7BE /* SongSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B554329E04BAE005EF7BE /* SongSelection.swift */; };
+		AA1B554829E0EFE7005EF7BE /* AudioPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B554729E0EFE7005EF7BE /* AudioPlayerDelegate.swift */; };
 		AA1B9E1729DF40EC00E44EBF /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B9E1629DF40EC00E44EBF /* BlurView.swift */; };
 		AA1B9E1929DF43C100E44EBF /* SongPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B9E1829DF43C100E44EBF /* SongPlayer.swift */; };
 		AA946BD929A4F31900D04463 /* NapsteriumApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BD829A4F31900D04463 /* NapsteriumApp.swift */; };
@@ -30,6 +31,7 @@
 /* Begin PBXFileReference section */
 		AA1B554129E03CD6005EF7BE /* SongManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongManager.swift; sourceTree = "<group>"; };
 		AA1B554329E04BAE005EF7BE /* SongSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongSelection.swift; sourceTree = "<group>"; };
+		AA1B554729E0EFE7005EF7BE /* AudioPlayerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerDelegate.swift; sourceTree = "<group>"; };
 		AA1B9E1629DF40EC00E44EBF /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		AA1B9E1829DF43C100E44EBF /* SongPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongPlayer.swift; sourceTree = "<group>"; };
 		AA946BD529A4F31900D04463 /* Napsterium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Napsterium.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,6 +131,7 @@
 				AA946BF329A4F5C600D04463 /* VideoListViewModel.swift */,
 				AA1B554129E03CD6005EF7BE /* SongManager.swift */,
 				AA1B554329E04BAE005EF7BE /* SongSelection.swift */,
+				AA1B554729E0EFE7005EF7BE /* AudioPlayerDelegate.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 				AA1B554429E04BAE005EF7BE /* SongSelection.swift in Sources */,
 				AA946BF629A4F6EB00D04463 /* YoutTubeAPIResponse.swift in Sources */,
 				AA946BF229A4F3B100D04463 /* VideoRowView.swift in Sources */,
+				AA1B554829E0EFE7005EF7BE /* AudioPlayerDelegate.swift in Sources */,
 				AA946BFD29A50B4400D04463 /* ThumbnailView.swift in Sources */,
 				AA946BEC29A4F38A00D04463 /* SongListView.swift in Sources */,
 				AA1B554229E03CD6005EF7BE /* SongManager.swift in Sources */,
