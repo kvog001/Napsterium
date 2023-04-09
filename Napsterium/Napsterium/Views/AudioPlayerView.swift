@@ -8,7 +8,7 @@
 import SwiftUI
 import AVKit
 
-struct SongPlayer: View {
+struct AudioPlayerView: View {
   var animation: Namespace.ID
   @Binding var expand: Bool
   var height = UIScreen.main.bounds.height / 3
@@ -71,15 +71,9 @@ struct SongPlayer: View {
               pauseAudio()
             }
           } label: {
-            if isPlaying {
-              Image(systemName: "pause.fill")
-                .font(.title2)
-                .foregroundColor(.primary)
-            } else {
-              Image(systemName: "play.fill")
-                .font(.title2)
-                .foregroundColor(.primary)
-            }
+            Image(systemName: isPlaying ? "pause.fill" : "play.fill")
+              .font(.title2)
+              .foregroundColor(.primary)
           }
           .onReceive(songSelection.$selectedSong) { song in
             guard let song = song else { return }
@@ -138,6 +132,9 @@ struct SongPlayer: View {
             }
           }
         }
+        .onReceive(songSelection.$selectedSong) { _ in
+          self.value = 0
+        }
     }
     .frame(maxHeight: expand ? .infinity : 80)
     .background(
@@ -167,7 +164,13 @@ struct SongPlayer: View {
   
   private func updateAudioPlayer(with song: Song) {
     do {
+      if isPlaying {
+        audioPlayer?.pause()
+        isPlaying = false
+      }
       audioPlayer = try AVAudioPlayer(data: song.mp3Data)
+      audioPlayer?.play()
+      isPlaying = true
       audioPlayer?.delegate = audioPlayerDelegate
       audioPlayerDelegate.songFinishedPlaying = {
         isPlaying = false

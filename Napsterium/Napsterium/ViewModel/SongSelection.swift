@@ -5,7 +5,7 @@
 //  Created by Kamber Vogli on 07.04.23.
 //
 
-import Foundation
+import Combine
 
 class SongSelection: ObservableObject {
   @Published var selectedSong: Song?

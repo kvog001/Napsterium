@@ -11,7 +11,7 @@
 		AA1B554429E04BAE005EF7BE /* SongSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B554329E04BAE005EF7BE /* SongSelection.swift */; };
 		AA1B554829E0EFE7005EF7BE /* AudioPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B554729E0EFE7005EF7BE /* AudioPlayerDelegate.swift */; };
 		AA1B9E1729DF40EC00E44EBF /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B9E1629DF40EC00E44EBF /* BlurView.swift */; };
-		AA1B9E1929DF43C100E44EBF /* SongPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B9E1829DF43C100E44EBF /* SongPlayer.swift */; };
+		AA1B9E1929DF43C100E44EBF /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B9E1829DF43C100E44EBF /* AudioPlayerView.swift */; };
 		AA946BD929A4F31900D04463 /* NapsteriumApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BD829A4F31900D04463 /* NapsteriumApp.swift */; };
 		AA946BDB29A4F31900D04463 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BDA29A4F31900D04463 /* ContentView.swift */; };
 		AA946BDD29A4F31B00D04463 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA946BDC29A4F31B00D04463 /* Assets.xcassets */; };
@@ -34,7 +34,7 @@
 		AA1B554729E0EFE7005EF7BE /* AudioPlayerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerDelegate.swift; sourceTree = "<group>"; };
 		AA1B554929E2D209005EF7BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AA1B9E1629DF40EC00E44EBF /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
-		AA1B9E1829DF43C100E44EBF /* SongPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongPlayer.swift; sourceTree = "<group>"; };
+		AA1B9E1829DF43C100E44EBF /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		AA946BD529A4F31900D04463 /* Napsterium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Napsterium.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA946BD829A4F31900D04463 /* NapsteriumApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NapsteriumApp.swift; sourceTree = "<group>"; };
 		AA946BDA29A4F31900D04463 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 				AA946BF129A4F3B100D04463 /* VideoRowView.swift */,
 				AA946BFC29A50B4400D04463 /* ThumbnailView.swift */,
 				AA1B9E1629DF40EC00E44EBF /* BlurView.swift */,
-				AA1B9E1829DF43C100E44EBF /* SongPlayer.swift */,
+				AA1B9E1829DF43C100E44EBF /* AudioPlayerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -219,7 +219,7 @@
 				AA946BDB29A4F31900D04463 /* ContentView.swift in Sources */,
 				AA1B9E1729DF40EC00E44EBF /* BlurView.swift in Sources */,
 				AA946BFB29A5069600D04463 /* SongRepository.swift in Sources */,
-				AA1B9E1929DF43C100E44EBF /* SongPlayer.swift in Sources */,
+				AA1B9E1929DF43C100E44EBF /* AudioPlayerView.swift in Sources */,
 				AA946BEA29A4F34F00D04463 /* Video.swift in Sources */,
 				AA946BF429A4F5C600D04463 /* VideoListViewModel.swift in Sources */,
 				AA946BF029A4F3A700D04463 /* VideoListView.swift in Sources */,

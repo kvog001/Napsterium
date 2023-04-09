@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-  @State private var tabSelection = 1
-  @State private var expand = false
   @Namespace var animation
+  @State private var expand = false
+  @State private var tabSelection = 1
   @StateObject private var songRepository = SongRepository()
   @StateObject private var songSelection = SongSelection()
   
@@ -23,13 +23,6 @@ struct ContentView: View {
     ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
       TabView(selection: $tabSelection) {
         SongListView(songRepository: songRepository, songSelection: songSelection)
-//        {
-//          songRepository.save(songs: songRepository.songs) { result in
-//              if case .failure(let error) = result {
-//                  fatalError(error.localizedDescription)
-//              }
-//          }
-//        }
           .tabItem {
             Label("Play", systemImage: "play")
           }
@@ -42,20 +35,11 @@ struct ContentView: View {
           .tag(2)
       }
       .onAppear {
-        // happens now at init of songRepository (line 14)
-//        SongStore.load { result in
-//            switch result {
-//            case .failure(let error):
-//                fatalError(error.localizedDescription)
-//            case .success(let songs):
-//                store.songs = songs
-//            }
-//        }
         tabSelection = 2
       }
       .accentColor(.black) // color of tabItem icons and search button
       
-      SongPlayer(animation: animation,
+      AudioPlayerView(animation: animation,
                  expand: $expand,
                  songSelection: songSelection)
     }
