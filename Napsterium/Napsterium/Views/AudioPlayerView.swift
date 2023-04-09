@@ -14,8 +14,25 @@ struct AudioPlayerView: View {
   @State var audioPlayer: AVAudioPlayer?
   @ObservedObject var songSelection: SongSelection
   
-  var song = SongRepository.sampleSongs.first
   let audioPlayerDelegate = AudioPlayerDelegate()
+  var song: Song?
+  
+  init(songSelection: SongSelection) {
+    self.songSelection = songSelection
+    
+    if let lastPlayedSongData = UserDefaults.standard.data(forKey: "lastPlayedSong"),
+       let lastPlayedSong = try? PropertyListDecoder().decode(Song.self, from: lastPlayedSongData) {
+      do {
+        _audioPlayer = try State(initialValue: AVAudioPlayer(data: lastPlayedSong.mp3Data))
+        audioPlayer?.prepareToPlay()
+      } catch {
+        print("Could not create audio player from last played song!")
+      }
+      self.song = lastPlayedSong
+    } else {
+      self.song = SongRepository.sampleSongs.first
+    }
+  }
   
   var body: some View {
     VStack(spacing: 2) {
@@ -27,8 +44,7 @@ struct AudioPlayerView: View {
             .frame(width : 50, height : 50)
             .cornerRadius(5)
         } else {
-          Image("paradise")
-            .resizable()
+          ThumbnailView(thumbnail: song?.thumbnailURL ?? "https://picsum.photos/seed/picsum/200/300")
             .aspectRatio(contentMode: .fill)
             .frame(width : 50, height: 50)
             .cornerRadius(5)
@@ -38,9 +54,8 @@ struct AudioPlayerView: View {
           Text(selectedSong.title)
             .font(.callout)
         } else {
-          Text("Lady Gaga")
-            .font(.title2)
-            .fontWeight(.bold)
+          Text(song?.title ?? "Fake title - Shakira")
+            .font(.callout)
         }
         
         Spacer(minLength: 0)
@@ -123,6 +138,12 @@ struct AudioPlayerView: View {
       audioPlayer?.delegate = audioPlayerDelegate
       audioPlayerDelegate.songFinishedPlaying = {
         isPlaying = false
+      }
+      
+      // store song to user defaults // TODO: move this to onPhaseChange/onSceneChange
+      let encoder = PropertyListEncoder()
+      if let encoded = try? encoder.encode(song) {
+        UserDefaults.standard.set(encoded, forKey: "lastPlayedSong")
       }
     } catch {
       print("Error playing audio: \(error.localizedDescription)")
