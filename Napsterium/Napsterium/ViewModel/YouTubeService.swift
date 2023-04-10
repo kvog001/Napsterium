@@ -49,12 +49,15 @@ class YouTubeService: ObservableObject {
   }
   
   let service = GTLRYouTubeService()
-  func foo() {
+  
+  func foo(q: String) {
+    videos = []
     service.apiKey = "AIzaSyCUWYjsCsdFf3XjfbE71uiN0Ia2jlREtho"
 
     // Set up the search query
     let query = GTLRYouTubeQuery_SearchList.query(withPart: ["id","snippet"])
-    query.q = "swift programming"
+    query.q = q
+    query.maxResults = 50
 
     // Execute the search request
     service.executeQuery(query) { (_, result, error) in
@@ -66,7 +69,16 @@ class YouTubeService: ObservableObject {
         // Process the search results
         if let searchResult = result as? GTLRYouTube_SearchListResponse {
             for video in searchResult.items ?? [] {
-                print("\(video.snippet?.title ?? "")")
+              let videoId = video.identifier?.videoId ?? ""
+//              print("video id:+= \(videoId)")
+              let title = video.snippet?.title ?? ""
+              let thumbnailURL = video.snippet?.thumbnails?.defaultProperty?.url ?? ""
+              let ytLink = "https://www.youtube.com/watch?v=\(videoId)"
+              self.videos.append(Video(id: videoId,
+                                  title: title,
+                                  thumbnailURL: thumbnailURL,
+                                  youtubeLink: ytLink))
+//                print("\(video.snippet?.title ?? "")")
             }
         }
     }

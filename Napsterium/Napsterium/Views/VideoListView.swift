@@ -22,7 +22,8 @@ struct VideoListView: View {
           .disableAutocorrection(true)
         
         Button {
-          youTubeService.search(query: query)
+//          youTubeService.search(query: query)
+          youTubeService.foo(q: query)
         } label: {
           Text("Search")
             .foregroundColor(.white)
@@ -45,7 +46,6 @@ struct VideoListView: View {
             )
               .onTapGesture {
                 selectionVM.selectOrDeselect(videoId: video.id)
-                youTubeService.foo()
               }
           }
         } header: {
