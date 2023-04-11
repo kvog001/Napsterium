@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-//  @Namespace var animation
-//  @State private var expand = false
   @State private var tabSelection = 1
   @StateObject private var songRepository = SongRepository()
   @StateObject private var songSelection = SongSelection()

@@ -22,7 +22,6 @@ struct VideoListView: View {
           .disableAutocorrection(true)
         
         Button {
-//          youTubeService.search(query: query)
           youTubeService.search(q: query)
         } label: {
           Text("Search")
