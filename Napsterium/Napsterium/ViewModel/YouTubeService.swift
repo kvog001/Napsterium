@@ -49,7 +49,7 @@ class YouTubeService: ObservableObject {
                 let title = video.snippet?.title ?? ""
                 let thumbnailUrl = video.snippet?.thumbnails?.defaultProperty?.url ?? ""
                 let youtubeUrl = "https://www.youtube.com/watch?v=\(videoId)"
-                print("\(title) - \(videoId) - \(thumbnailUrl) - \(youtubeUrl) - \(duration) - \(viewCount)")
+//                print("\(title) - \(videoId) - \(thumbnailUrl) - \(youtubeUrl) - \(duration) - \(viewCount)")
                 
                 let viewsString = self.viewsString(fromViewCount: viewCount)
                 let durationString = self.durationString(fromISO8601Duration: duration)

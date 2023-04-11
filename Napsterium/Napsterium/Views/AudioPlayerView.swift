@@ -15,7 +15,7 @@ struct AudioPlayerView: View {
   @ObservedObject var songSelection: SongSelection
   
   let audioPlayerDelegate = AudioPlayerDelegate()
-  var song: Song?
+  var song: Song
   
   init(songSelection: SongSelection) {
     self.songSelection = songSelection
@@ -24,13 +24,13 @@ struct AudioPlayerView: View {
        let lastPlayedSong = try? PropertyListDecoder().decode(Song.self, from: lastPlayedSongData) {
       do {
         _audioPlayer = try State(initialValue: AVAudioPlayer(data: lastPlayedSong.mp3Data))
-        audioPlayer?.prepareToPlay()
+//        audioPlayer?.prepareToPlay()
       } catch {
         print("Could not create audio player from last played song!")
       }
       self.song = lastPlayedSong
     } else {
-      self.song = SongRepository.sampleSongs.first
+      self.song = SongRepository.sampleSongs.first!
     }
   }
   
@@ -44,7 +44,7 @@ struct AudioPlayerView: View {
             .frame(width : 50, height : 50)
             .cornerRadius(5)
         } else {
-          ThumbnailView(thumbnail: song?.thumbnailURL ?? "https://picsum.photos/seed/picsum/200/300")
+          ThumbnailView(thumbnail: song.thumbnailURL)
             .aspectRatio(contentMode: .fill)
             .frame(width : 50, height: 50)
             .cornerRadius(5)
@@ -55,7 +55,7 @@ struct AudioPlayerView: View {
             .lineLimit(1)
             .font(.callout)
         } else {
-          Text(song?.title ?? "Fake title - Shakira")
+          Text(song.title)
             .font(.callout)
         }
         
@@ -90,7 +90,7 @@ struct AudioPlayerView: View {
       .padding(.horizontal)
       
       // MARK: Progress bar of the playing song
-      ProgressView(value: value, total: 240) //TODO: assign total from selectedSong.duration
+      ProgressView(value: value, total: Float(song.duration)) //TODO: assign total from selectedSong.duration
         .progressViewStyle(LinearProgressViewStyle())
         .tint(.white)
         .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))

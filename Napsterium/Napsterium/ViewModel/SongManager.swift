@@ -21,6 +21,7 @@ class SongManager {
     do {
       let songData = try PropertyListEncoder().encode(song)
       try songData.write(to: fileUrl)
+      print("Song with id \(song.id) was successfully saved in the file system: \(fileUrl)")
     } catch {
       print("Error saving song: \(error.localizedDescription)")
     }
@@ -36,6 +37,8 @@ class SongManager {
     }
   }
   
+  /// `Note` that if you change the struct `Song` older songs saved
+  /// in the file system will no longer be decoded properly and thus won't get loaded
   func loadSongs() -> [Song] {
     var songs: [Song] = []
     

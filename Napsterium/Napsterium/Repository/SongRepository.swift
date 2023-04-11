@@ -12,7 +12,9 @@ class SongRepository: ObservableObject {
   private let songManager = SongManager.shared
   
   init() {
+    print("loading songs ...")
     songs = songManager.loadSongs()
+    print("songs.size = \(songs.count)")
   }
   
   /// sorts `songs` by `dateAdded`, latest first
@@ -31,7 +33,7 @@ class SongRepository: ObservableObject {
     songManager.deleteSong(song)
   }
   
-  func downloadSong(youtubeURL: String,  thumbnailURL: String, title: String) {
+  func downloadSong(songMetadata: SongMetadata) {
     guard let url = URL(string: "https://kvogli.xyz:443/helloworld") else {
       print("Invalid URL")
       return
@@ -39,7 +41,7 @@ class SongRepository: ObservableObject {
     
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
-    request.httpBody = youtubeURL.data(using: .utf8)
+    request.httpBody = songMetadata.youtubeURL.data(using: .utf8)
     
     let config = URLSessionConfiguration.default
     config.tlsMinimumSupportedProtocolVersion = .TLSv10
@@ -52,8 +54,15 @@ class SongRepository: ObservableObject {
       } else if let data = data, let response = response as? HTTPURLResponse {
         print("Response status code: \(response.statusCode)")
         
+        let durationInSeconds = self.calcDurationInSeconds(fromTimeString: songMetadata.duration) + 1 // +1 as a safe buffer
+        print("saving song with duration \(durationInSeconds)")
         // Save the song to file system and to the repository
-        let song = Song(id: title, title: title, thumbnailURL: thumbnailURL, mp3Data: data, dateAdded: Date())
+        let song = Song(id: songMetadata.id,
+                        title: songMetadata.title,
+                        mp3Data: data,
+                        duration: durationInSeconds,
+                        dateAdded: Date(),
+                        thumbnailURL: songMetadata.thumbnailURL)
         DispatchQueue.main.async {
           self.addSong(song)
         }
@@ -62,46 +71,87 @@ class SongRepository: ObservableObject {
     
     task.resume()
   }
+  
+  private func calcDurationInSeconds(fromTimeString timeString: String) -> Int {
+      let timeComponents = timeString.split(separator: ":")
+      if timeComponents.count == 2 {
+          // Handle mm:ss format
+          if let minutes = Int(timeComponents[0]),
+             let seconds = Int(timeComponents[1]) {
+              let totalSeconds = minutes * 60 + seconds
+              return totalSeconds
+          } else {
+              // Invalid component format, failed to convert to integers
+              return 0
+          }
+      } else if timeComponents.count == 3 {
+          // Handle h:mm:ss format
+          if let hours = Int(timeComponents[0]),
+             let minutes = Int(timeComponents[1]),
+             let seconds = Int(timeComponents[2]) {
+              let totalSeconds = hours * 3600 + minutes * 60 + seconds
+              return totalSeconds
+          } else {
+              // Invalid component format, failed to convert to integers
+              return 0
+          }
+      } else {
+          // Invalid time string, should have either 2 or 3 components (mm:ss or h:mm:ss)
+          return 0
+      }
+  }
+
 }
 
 
 extension SongRepository {
   static let sampleSongs: [Song] = [
-    Song(id: "1", title: "Ojitos Lindos",
-         thumbnailURL: "https://i.ytimg.com/vi/tbPcoG7f5sI/hq720.jpg?sqp=-oaymwExCNAFEJQDSFryq4qpAyMIARUAAIhCGAHwAQH4Ac4FgALQBYoCDAgAEAEYfyArKBMwDw==&amp;rs=AOn4CLCnOleT_9stYXhbWQNtPQyzyxnuzw",
+    Song(id: "1",
+         title: "Ojitos Lindos",
          mp3Data: Data(),
-         dateAdded: Date()
-//         duration: ""
+         duration: 120,
+         dateAdded: Date(),
+         thumbnailURL: "https://i.ytimg.com/vi/tbPcoG7f5sI/hq720.jpg?sqp=-oaymwExCNAFEJQDSFryq4qpAyMIARUAAIhCGAHwAQH4Ac4FgALQBYoCDAgAEAEYfyArKBMwDw==&amp;rs=AOn4CLCnOleT_9stYXhbWQNtPQyzyxnuzw"
         ),
     
-    Song(id: "2", title: "Cheap Thrills",
-         thumbnailURL: "https://i.ytimg.com/vi/31crA53Dgu0/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&amp;rs=AOn4CLB9ISPAaF174upf9QMvw6ap1i3t4A",
+    Song(id: "2",
+         title: "Cheap Thrills",
          mp3Data: Data(),
-         dateAdded: Date()
+         duration: 120,
+         dateAdded: Date(),
+         thumbnailURL: "https://i.ytimg.com/vi/31crA53Dgu0/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&amp;rs=AOn4CLB9ISPAaF174upf9QMvw6ap1i3t4A"
         ),
     
-    Song(id: "3", title: "Wake me up",
-         thumbnailURL: "https://i.ytimg.com/vi/IcrbM1l_BoI/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&amp;rs=AOn4CLDEKeYfubdW5-4v8fkYI_8fv0UqhA",
+    Song(id: "3",
+         title: "Wake me up",
          mp3Data: Data(),
-         dateAdded: Date()
+         duration: 120,
+         dateAdded: Date(),
+         thumbnailURL: "https://i.ytimg.com/vi/IcrbM1l_BoI/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&amp;rs=AOn4CLDEKeYfubdW5-4v8fkYI_8fv0UqhA"
         ),
     
-    Song(id: "4", title: "I took a pill in Ibiza",
-         thumbnailURL: "https://i.ytimg.com/vi/foE1mO2yM04/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&amp;rs=AOn4CLClo35Y31sLiEfDnHeC3Bzd5wWCzA",
+    Song(id: "4",
+         title: "I took a pill in Ibiza",
          mp3Data: Data(),
-         dateAdded: Date()
+         duration: 120,
+         dateAdded: Date(),
+         thumbnailURL: "https://i.ytimg.com/vi/foE1mO2yM04/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&amp;rs=AOn4CLClo35Y31sLiEfDnHeC3Bzd5wWCzA"
         ),
     
-    Song(id: "5", title: "Yonagumi",
-         thumbnailURL: "https://i.ytimg.com/vi/doLMt10ytHY/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&amp;rs=AOn4CLDmMn9QkbSmIYlYJqk37BTynlQ_eQ",
+    Song(id: "5",
+         title: "Yonagumi",
          mp3Data: Data(),
-         dateAdded: Date()
+         duration: 120,
+         dateAdded: Date(),
+         thumbnailURL: "https://i.ytimg.com/vi/doLMt10ytHY/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&amp;rs=AOn4CLDmMn9QkbSmIYlYJqk37BTynlQ_eQ"
         ),
     
-    Song(id: "6", title: "Paradise",
-         thumbnailURL: "https://i.ytimg.com/vi/6KW1PG41hCo/hq720.jpg?sqp=-oaymwExCNAFEJQDSFryq4qpAyMIARUAAIhCGAHwAQH4Af4JgALQBYoCDAgAEAEYZSBlKGUwDw==&amp;rs=AOn4CLAAw1Hy_hhc1a28XMNRgCfM4Dh_RQ",
+    Song(id: "6",
+         title: "Paradise",
          mp3Data: Data(),
-         dateAdded: Date()
+         duration: 120,
+         dateAdded: Date(),
+         thumbnailURL: "https://i.ytimg.com/vi/6KW1PG41hCo/hq720.jpg?sqp=-oaymwExCNAFEJQDSFryq4qpAyMIARUAAIhCGAHwAQH4Af4JgALQBYoCDAgAEAEYZSBlKGUwDw==&amp;rs=AOn4CLAAw1Hy_hhc1a28XMNRgCfM4Dh_RQ"
         )
   ]
 }

@@ -43,9 +43,11 @@ struct VideoRowView: View {
             self.isTapped.toggle()
           }
           print("Sending request to server for \(video.title) - \(video.youtubeURL)")
-          songRepository.downloadSong(youtubeURL: video.youtubeURL,
-                                      thumbnailURL: video.thumbnailURL,
-                                      title: video.title)
+          songRepository.downloadSong(songMetadata: SongMetadata(id: video.id,
+                                                                 title: video.title,
+                                                                 duration: video.duration,
+                                                                 youtubeURL: video.youtubeURL,
+                                                                 thumbnailURL: video.thumbnailURL))
         }
       }
     }
