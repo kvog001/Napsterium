@@ -12,7 +12,7 @@ import GoogleAPIClientForREST_YouTube
 class YouTubeService: ObservableObject {
   let maxResults = 50
   let apiKey = "AIzaSyCUWYjsCsdFf3XjfbE71uiN0Ia2jlREtho"
-  @Published var videos: [Video] = []
+  @Published var results: [Video] = []
   
   func search(query: String) {
     let queryWithNoWhitespaces = query.replacingOccurrences(of: " ", with: "%20")
@@ -28,7 +28,7 @@ class YouTubeService: ObservableObject {
             let decoder = JSONDecoder()
             let response = try decoder.decode(YouTubeAPIResponse.self, from: data)
             DispatchQueue.main.async {
-              self.videos = response.items.map {
+              self.results = response.items.map {
                 Video(
                   id: $0.id.videoId,
                   title: $0.snippet.title,
@@ -51,36 +51,107 @@ class YouTubeService: ObservableObject {
   let service = GTLRYouTubeService()
   
   func foo(q: String) {
-    videos = []
+    results = []
     service.apiKey = "AIzaSyCUWYjsCsdFf3XjfbE71uiN0Ia2jlREtho"
-
+    
     // Set up the search query
     let query = GTLRYouTubeQuery_SearchList.query(withPart: ["id","snippet"])
     query.q = q
     query.maxResults = 50
-
+    
     // Execute the search request
     service.executeQuery(query) { (_, result, error) in
-        guard error == nil else {
+      guard error == nil else {
+        print("An error occurred: \(error!)")
+        return
+      }
+      
+      // Process the search results
+      if let searchResult = result as? GTLRYouTube_SearchListResponse {
+        let videoIds = searchResult.items?.compactMap { $0.identifier?.videoId } ?? []
+        let videoDetailsQuery = GTLRYouTubeQuery_VideosList.query(withPart: ["contentDetails","statistics"])
+        videoDetailsQuery.identifier = videoIds
+        self.service.executeQuery(videoDetailsQuery) { (_, result, error) in
+          guard error == nil else {
             print("An error occurred: \(error!)")
             return
-        }
-
-        // Process the search results
-        if let searchResult = result as? GTLRYouTube_SearchListResponse {
+          }
+          if let videoResult = result as? GTLRYouTube_VideoListResponse {
+            let videos = videoResult.items ?? []
             for video in searchResult.items ?? [] {
-              let videoId = video.identifier?.videoId ?? ""
-//              print("video id:+= \(videoId)")
-              let title = video.snippet?.title ?? ""
-              let thumbnailURL = video.snippet?.thumbnails?.defaultProperty?.url ?? ""
-              let ytLink = "https://www.youtube.com/watch?v=\(videoId)"
-              self.videos.append(Video(id: videoId,
-                                  title: title,
-                                  thumbnailURL: thumbnailURL,
-                                  youtubeLink: ytLink))
-//                print("\(video.snippet?.title ?? "")")
+              if let videoData = videos.first(where: { $0.identifier == video.identifier?.videoId }),
+                 let duration = videoData.contentDetails?.duration,
+                 let viewCount = videoData.statistics?.viewCount {
+                let videoId = video.identifier?.videoId ?? ""
+                let title = video.snippet?.title ?? ""
+                let thumbnailUrl = video.snippet?.thumbnails?.defaultProperty?.url ?? ""
+                let youtubeUrl = "https://www.youtube.com/watch?v=\(videoId)"
+                print("\(title) - \(videoId) - \(thumbnailUrl) - \(youtubeUrl) - \(duration) - \(viewCount)")
+                let result = Video(id: videoId, title: title, thumbnailURL: thumbnailUrl, youtubeLink: youtubeUrl)
+                self.results.append(result)
+              }
             }
+          }
         }
+      }
     }
+    
+    //    private func getViews() {}
+    
+    //    // Execute the search request
+    //    service.executeQuery(query) { (_, result, error) in
+    //        guard error == nil else {
+    //            print("An error occurred: \(error!)")
+    //            return
+    //        }
+    //
+    //        // Process the search results
+    //        if let searchResult = result as? GTLRYouTube_SearchListResponse {
+    //            for video in searchResult.items ?? [] {
+    //              let videoId = video.identifier?.videoId ?? ""
+    ////              print("video id:+= \(videoId)")
+    //              let title = video.snippet?.title ?? ""
+    //              let thumbnailURL = video.snippet?.thumbnails?.defaultProperty?.url ?? ""
+    //              let ytLink = "https://www.youtube.com/watch?v=\(videoId)"
+    //              self.videos.append(Video(id: videoId,
+    //                                  title: title,
+    //                                  thumbnailURL: thumbnailURL,
+    //                                  youtubeLink: ytLink))
+    ////                print("\(video.snippet?.title ?? "")")
+    //            }
+    //        }
+    //    }
+  }
+  
+  private func durationString(fromISO8601Duration duration: String) -> String {
+    guard let durationRegex = try? NSRegularExpression(pattern: #"PT(\d+H)?(\d+M)?(\d+S)?"#),
+          let match = durationRegex.firstMatch(in: duration, range: NSRange(duration.startIndex..., in: duration))
+    else {
+      return ""
+    }
+    
+    var hours = 0, minutes = 0, seconds = 0
+    
+    if let hourRange = Range(match.range(at: 1), in: duration) {
+      hours = Int(duration[hourRange].dropLast()) ?? 0
+    }
+    
+    if let minuteRange = Range(match.range(at: 2), in: duration) {
+      minutes = Int(duration[minuteRange].dropLast()) ?? 0
+    }
+    
+    if let secondRange = Range(match.range(at: 3), in: duration) {
+      seconds = Int(duration[secondRange].dropLast()) ?? 0
+    }
+    
+    var durationString = ""
+    
+    if hours > 0 {
+      durationString += "\(hours):"
+    }
+    
+    durationString += String(format: "%02d:%02d", minutes, seconds)
+    
+    return durationString
   }
 }

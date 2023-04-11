@@ -10,6 +10,7 @@ import SwiftUI
 struct VideoRowView: View {
   let video: Video
   let isExpanded: Bool
+  @State private var isTapped = false
   @ObservedObject var songRepository: SongRepository
   
   var body: some View {
@@ -36,7 +37,11 @@ struct VideoRowView: View {
           Text("Add to playlist")
             .foregroundColor(.white)
         }
+        .scaleEffect(isTapped ? 1.2 : 1.0) // Apply scale effect when tapped
         .onTapGesture {
+          withAnimation(.spring()) { // Apply spring animation to smooth the scale effect
+            self.isTapped.toggle()
+          }
           print("Sending request to server for \(video.title) - \(video.youtubeLink)")
           songRepository.downloadSong(youTubeLink: video.youtubeLink,
                                       ytThumbnail: video.thumbnailURL,

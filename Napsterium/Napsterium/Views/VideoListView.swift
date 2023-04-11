@@ -38,7 +38,7 @@ struct VideoListView: View {
       // MARK: Results
       List {
         Section {
-          ForEach(youTubeService.videos) { video in
+          ForEach(youTubeService.results) { video in
             VideoRowView(
               video: video,
               isExpanded: selectionVM.selection.contains(video.id),

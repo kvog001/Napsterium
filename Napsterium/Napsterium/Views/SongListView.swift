@@ -75,6 +75,8 @@ struct SongListView: View {
       //            saveAction()
       //          }
       //        }
+      Spacer()
+        .frame(height: 80)
     }
     .coordinateSpace(name: "scrollView")
     .background(bgColor.ignoresSafeArea())
