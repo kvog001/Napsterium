@@ -10,50 +10,10 @@ import GoogleAPIClientForRESTCore
 import GoogleAPIClientForREST_YouTube
 
 class YouTubeService: ObservableObject {
-  let maxResults = 50
-  let apiKey = "AIzaSyCUWYjsCsdFf3XjfbE71uiN0Ia2jlREtho"
   @Published var results: [Video] = []
+  private let service = GTLRYouTubeService()
   
-  func search(query: String) {
-    let queryWithNoWhitespaces = query.replacingOccurrences(of: " ", with: "%20")
-    let urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(queryWithNoWhitespaces)&key=\(apiKey)&maxResults=\(maxResults)"
-    
-    let logDate = Date()
-    print("\(logDate): YouTube API Request URL: \(urlString)")
-    
-    if let url = URL(string: urlString) {
-      URLSession.shared.dataTask(with: url) { data, response, error in
-        if let data = data {
-          do {
-            let decoder = JSONDecoder()
-            let response = try decoder.decode(YouTubeAPIResponse.self, from: data)
-            DispatchQueue.main.async {
-              self.results = response.items.map {
-                Video(
-                  id: $0.id.videoId,
-                  title: $0.snippet.title,
-                  views: "",
-                  duration: "",
-                  youtubeURL: "https://www.youtube.com/watch?v=\($0.id.videoId)",
-                  publishedAt: "",
-                  thumbnailURL: $0.snippet.thumbnails.medium.url
-                )
-              }
-            }
-          } catch {
-            print("Error decoding response: \(error)")
-          }
-        } else if let error = error {
-          print("Error fetching videos: \(error)")
-        }
-      }
-      .resume()
-    }
-  }
-  
-  let service = GTLRYouTubeService()
-  
-  func foo(q: String) {
+  func search(q: String) {
     results = []
     service.apiKey = "AIzaSyCUWYjsCsdFf3XjfbE71uiN0Ia2jlREtho"
     
@@ -108,32 +68,6 @@ class YouTubeService: ObservableObject {
         }
       }
     }
-    
-    //    private func getViews() {}
-    
-    //    // Execute the search request
-    //    service.executeQuery(query) { (_, result, error) in
-    //        guard error == nil else {
-    //            print("An error occurred: \(error!)")
-    //            return
-    //        }
-    //
-    //        // Process the search results
-    //        if let searchResult = result as? GTLRYouTube_SearchListResponse {
-    //            for video in searchResult.items ?? [] {
-    //              let videoId = video.identifier?.videoId ?? ""
-    ////              print("video id:+= \(videoId)")
-    //              let title = video.snippet?.title ?? ""
-    //              let thumbnailURL = video.snippet?.thumbnails?.defaultProperty?.url ?? ""
-    //              let ytLink = "https://www.youtube.com/watch?v=\(videoId)"
-    //              self.videos.append(Video(id: videoId,
-    //                                  title: title,
-    //                                  thumbnailURL: thumbnailURL,
-    //                                  youtubeLink: ytLink))
-    ////                print("\(video.snippet?.title ?? "")")
-    //            }
-    //        }
-    //    }
   }
   
   private func viewsString(fromViewCount viewCount: NSNumber) -> String {

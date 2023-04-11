@@ -23,7 +23,7 @@ struct VideoListView: View {
         
         Button {
 //          youTubeService.search(query: query)
-          youTubeService.foo(q: query)
+          youTubeService.search(q: query)
         } label: {
           Text("Search")
             .foregroundColor(.white)
