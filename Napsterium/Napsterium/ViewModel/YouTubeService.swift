@@ -32,8 +32,11 @@ class YouTubeService: ObservableObject {
                 Video(
                   id: $0.id.videoId,
                   title: $0.snippet.title,
-                  thumbnailURL: $0.snippet.thumbnails.medium.url,
-                  youtubeLink: "https://www.youtube.com/watch?v=\($0.id.videoId)"
+                  views: "",
+                  duration: "",
+                  youtubeURL: "https://www.youtube.com/watch?v=\($0.id.videoId)",
+                  publishedAt: "",
+                  thumbnailURL: $0.snippet.thumbnails.medium.url
                 )
               }
             }
@@ -87,7 +90,17 @@ class YouTubeService: ObservableObject {
                 let thumbnailUrl = video.snippet?.thumbnails?.defaultProperty?.url ?? ""
                 let youtubeUrl = "https://www.youtube.com/watch?v=\(videoId)"
                 print("\(title) - \(videoId) - \(thumbnailUrl) - \(youtubeUrl) - \(duration) - \(viewCount)")
-                let result = Video(id: videoId, title: title, thumbnailURL: thumbnailUrl, youtubeLink: youtubeUrl)
+                
+                let viewsString = self.viewsString(fromViewCount: viewCount)
+                let durationString = self.durationString(fromISO8601Duration: duration)
+                let result = Video(id: videoId,
+                                   title: title,
+                                   views: "\(viewsString)",
+                                   duration: "\(durationString)",
+                                   youtubeURL: youtubeUrl,
+                                   publishedAt: "",
+                                   thumbnailURL: thumbnailUrl
+                )
                 self.results.append(result)
               }
             }
@@ -121,6 +134,22 @@ class YouTubeService: ObservableObject {
     //            }
     //        }
     //    }
+  }
+  
+  private func viewsString(fromViewCount viewCount: NSNumber) -> String {
+    let viewCountInt = viewCount.intValue
+    if viewCountInt > 1000000000 {
+      let nrOfBillions = viewCountInt / 1000000000
+      return "\(nrOfBillions)B"
+    } else if viewCountInt > 1000000 {
+      let nrOfMillions = viewCountInt / 1000000
+      return "\(nrOfMillions)M"
+    } else if viewCountInt > 1000 {
+      let nrOfThousands = viewCountInt / 1000
+      return "\(nrOfThousands)K"
+    } else {
+      return "\(viewCountInt)"
+    }
   }
   
   private func durationString(fromISO8601Duration duration: String) -> String {

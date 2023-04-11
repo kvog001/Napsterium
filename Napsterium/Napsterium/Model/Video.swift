@@ -8,8 +8,11 @@
 import Foundation
 
 struct Video: Identifiable {
-  var id: String
-  var title: String
+  let id: String
+  let title: String
+  let views: String
+  let duration: String
+  let youtubeURL: String
+  let publishedAt: String
   var thumbnailURL: String
-  var youtubeLink: String
 }

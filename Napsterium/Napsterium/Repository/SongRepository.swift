@@ -31,7 +31,7 @@ class SongRepository: ObservableObject {
     songManager.deleteSong(song)
   }
   
-  func downloadSong(youTubeLink: String,  ytThumbnail: String, ytTitle: String) {
+  func downloadSong(youtubeURL: String,  thumbnailURL: String, title: String) {
     guard let url = URL(string: "https://kvogli.xyz:443/helloworld") else {
       print("Invalid URL")
       return
@@ -39,7 +39,7 @@ class SongRepository: ObservableObject {
     
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
-    request.httpBody = youTubeLink.data(using: .utf8)
+    request.httpBody = youtubeURL.data(using: .utf8)
     
     let config = URLSessionConfiguration.default
     config.tlsMinimumSupportedProtocolVersion = .TLSv10
@@ -53,7 +53,7 @@ class SongRepository: ObservableObject {
         print("Response status code: \(response.statusCode)")
         
         // Save the song to file system and to the repository
-        let song = Song(id: ytTitle, title: ytTitle, thumbnailURL: ytThumbnail, mp3Data: data, dateAdded: Date())
+        let song = Song(id: title, title: title, thumbnailURL: thumbnailURL, mp3Data: data, dateAdded: Date())
         DispatchQueue.main.async {
           self.addSong(song)
         }
@@ -71,6 +71,7 @@ extension SongRepository {
          thumbnailURL: "https://i.ytimg.com/vi/tbPcoG7f5sI/hq720.jpg?sqp=-oaymwExCNAFEJQDSFryq4qpAyMIARUAAIhCGAHwAQH4Ac4FgALQBYoCDAgAEAEYfyArKBMwDw==&amp;rs=AOn4CLCnOleT_9stYXhbWQNtPQyzyxnuzw",
          mp3Data: Data(),
          dateAdded: Date()
+//         duration: ""
         ),
     
     Song(id: "2", title: "Cheap Thrills",

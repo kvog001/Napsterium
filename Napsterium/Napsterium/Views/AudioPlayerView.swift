@@ -52,6 +52,7 @@ struct AudioPlayerView: View {
         
         if let selectedSong = songSelection.selectedSong {
           Text(selectedSong.title)
+            .lineLimit(1)
             .font(.callout)
         } else {
           Text(song?.title ?? "Fake title - Shakira")

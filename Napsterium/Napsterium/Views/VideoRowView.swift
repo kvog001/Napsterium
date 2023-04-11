@@ -25,7 +25,7 @@ struct VideoRowView: View {
           Text(video.title)
             .lineLimit(2)
             .font(.body)
-          Text("512M views . 1 year ago")
+          Text("\(video.views) views . \(video.duration)")
             .font(.caption2)
         }
       }
@@ -42,10 +42,10 @@ struct VideoRowView: View {
           withAnimation(.spring()) { // Apply spring animation to smooth the scale effect
             self.isTapped.toggle()
           }
-          print("Sending request to server for \(video.title) - \(video.youtubeLink)")
-          songRepository.downloadSong(youTubeLink: video.youtubeLink,
-                                      ytThumbnail: video.thumbnailURL,
-                                      ytTitle: video.title)
+          print("Sending request to server for \(video.title) - \(video.youtubeURL)")
+          songRepository.downloadSong(youtubeURL: video.youtubeURL,
+                                      thumbnailURL: video.thumbnailURL,
+                                      title: video.title)
         }
       }
     }
@@ -57,8 +57,12 @@ struct VideoRowView_Previews: PreviewProvider {
     VideoRowView(
       video: Video(id: "uuid",
                    title: "Ojitos lindos bad bunny - james west singing till midnight",
-                   thumbnailURL: "",
-                   youtubeLink: ""),
+                   views: "13M",
+                   duration: "3:37",
+                   youtubeURL: "",
+                   publishedAt: "3 years ago",
+                   thumbnailURL: ""
+                  ),
       isExpanded: true,
       songRepository: SongRepository()
     )
