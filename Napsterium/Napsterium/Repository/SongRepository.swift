@@ -22,9 +22,13 @@ class SongRepository: ObservableObject {
     songs.sorted(by: { $0.dateAdded > $1.dateAdded })
   }
   
-  func addSong(_ song: Song) {
-    songs.append(song)
-    songManager.saveSong(song)
+  func addSong(_ newSong: Song) {
+    if songs.contains(where: { $0.id == newSong.id }) {
+      print("song is already in the playlist") //TODO: check to not download twice beforehand
+      return
+    }
+    songs.append(newSong)
+    songManager.saveSong(newSong)
   }
   
   func deleteSong(_ song: Song) {
