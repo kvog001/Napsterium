@@ -9,6 +9,7 @@ import AVKit
 import Combine
 
 class AudioPlayerViewModel: ObservableObject {
+  @Published var replay = false
   @Published var value : Float = 0
   @Published var isPlaying = false
   @Published var currentSong: Song
@@ -33,6 +34,10 @@ class AudioPlayerViewModel: ObservableObject {
   
   func selectSong(_ song: Song) {
     updateAudioPlayer(with: song)
+  }
+  
+  func replayAudio() {
+    replay = !replay
   }
   
   func playAudio() {
@@ -66,6 +71,9 @@ class AudioPlayerViewModel: ObservableObject {
       audioPlayerDelegate.songFinishedPlaying = {
         self.isPlaying = false
         self.value = 0
+        if self.replay {
+          self.playAudio()
+        }
       }
       
       // store song to user defaults // TODO: move this to onPhaseChange/onSceneChange

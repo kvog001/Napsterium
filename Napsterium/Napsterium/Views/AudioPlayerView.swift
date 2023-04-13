@@ -44,8 +44,9 @@ struct AudioPlayerView: View {
         
         Button {
           // TODO: replay current song
+          audioPlayerViewModel.replayAudio()
         } label: {
-          Image(systemName: "repeat")
+          Image(systemName: audioPlayerViewModel.replay ? "repeat.1" : "repeat")
             .font(.title2)
             .foregroundColor(.primary)
         }
