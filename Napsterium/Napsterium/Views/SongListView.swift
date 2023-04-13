@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SongListView: View {
   @ObservedObject var songRepository: SongRepository
-  @ObservedObject var songSelection: SongSelection
+  @ObservedObject var audioPlayerViewModel: AudioPlayerViewModel
   @Environment(\.scenePhase) private var scenePhase
   
   let bgColor = Color(hue: 0.0, saturation: 0.0, brightness: 0.071)
@@ -38,8 +38,8 @@ struct SongListView: View {
             .scaleEffect(10)
           Image("paradise")
             .resizable()
-            .frame(width: height,
-                   height: height)
+            .frame(width: max(0, height), // TODO: fix UI, when scrolling up to the top, you can see the end of the gradient below
+                   height: max(0, height))
             .offset(y: offsetY)
             .opacity(opacity)
             .shadow(color: Color.black.opacity(0.5), radius: 30)
@@ -56,7 +56,7 @@ struct SongListView: View {
           }
           .padding(EdgeInsets(top: 10, leading: 7, bottom: 0, trailing: 7))
           .onTapGesture {
-            songSelection.select(song: song)
+            audioPlayerViewModel.selectSong(song)
           }
           .onLongPressGesture(minimumDuration: 0.5, maximumDistance: 10) {
             print("onLongPress detected - todo")
@@ -85,7 +85,6 @@ struct SongListView: View {
 
 struct SongListView_Previews: PreviewProvider {
   static var previews: some View {
-    let songSelection = SongSelection()
-    SongListView(songRepository: SongRepository(), songSelection: songSelection)
+    SongListView(songRepository: SongRepository(), audioPlayerViewModel: AudioPlayerViewModel())
   }
 }

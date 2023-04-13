@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
   @State private var tabSelection = 1
   @StateObject private var songRepository = SongRepository()
-  @StateObject private var songSelection = SongSelection()
+  @StateObject private var audioPlayerViewModel = AudioPlayerViewModel()
   
   init() {
     UITabBar.appearance().barTintColor = .yellow
@@ -20,7 +20,7 @@ struct ContentView: View {
   var body: some View {
     ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
       TabView(selection: $tabSelection) {
-        SongListView(songRepository: songRepository, songSelection: songSelection)
+        SongListView(songRepository: songRepository, audioPlayerViewModel: audioPlayerViewModel)
           .tabItem {
             Label("Play", systemImage: "play")
           }
@@ -37,7 +37,7 @@ struct ContentView: View {
       }
       .accentColor(.black) // color of tabItem icons and search button
       
-      AudioPlayerView(songSelection: songSelection)
+      AudioPlayerView(audioPlayerViewModel: audioPlayerViewModel)
     }
   }
 }
