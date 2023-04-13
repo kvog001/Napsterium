@@ -5,8 +5,8 @@
 //  Created by Kamber Vogli on 06.04.23.
 //
 
-import SwiftUI
 import AVKit
+import SwiftUI
 
 struct AudioPlayerView: View {
   @ObservedObject var audioPlayerViewModel: AudioPlayerViewModel
@@ -17,7 +17,7 @@ struct AudioPlayerView: View {
   
   var body: some View {
     VStack(spacing: 2) {
-      // MARK: Image, title, play button, forward button
+      // MARK: Song image and title
       HStack(spacing: 15) {
         ThumbnailView(thumbnail: audioPlayerViewModel.currentSong.thumbnailURL)
           .aspectRatio(contentMode: .fill)
@@ -30,6 +30,7 @@ struct AudioPlayerView: View {
         
         Spacer(minLength: 0)
         
+        // MARK: Play button
         Button {
           if !audioPlayerViewModel.isPlaying {
             audioPlayerViewModel.playAudio()
@@ -42,8 +43,8 @@ struct AudioPlayerView: View {
             .foregroundColor(.primary)
         }
         
+        // MARK: Repeat button
         Button {
-          // TODO: replay current song
           audioPlayerViewModel.replayAudio()
         } label: {
           Image(systemName: audioPlayerViewModel.replay ? "repeat.1" : "repeat")
@@ -66,9 +67,6 @@ struct AudioPlayerView: View {
             }
           }
         }
-//        .onReceive(audioPlayerViewModel.$currentSong) { _ in
-//          self.audi = 0
-//        }
     }
     .frame(maxHeight: 80)
     .background(
