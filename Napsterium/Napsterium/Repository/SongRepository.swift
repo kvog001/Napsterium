@@ -58,7 +58,7 @@ class SongRepository: ObservableObject {
       } else if let data = data, let response = response as? HTTPURLResponse {
         print("Response status code: \(response.statusCode)")
         
-        let durationInSeconds = self.calcDurationInSeconds(fromTimeString: songMetadata.duration) + 1 // +1 as a safe buffer
+        let durationInSeconds = self.calcDurationInSeconds(fromTimeString: songMetadata.duration)
         print("saving song with duration \(durationInSeconds)")
         // Save the song to file system and to the repository
         let song = Song(id: songMetadata.id,

@@ -33,7 +33,7 @@ struct ContentView: View {
           .tag(2)
       }
       .onAppear {
-        tabSelection = 2
+        tabSelection = 1
       }
       .accentColor(.black) // color of tabItem icons and search button
       
