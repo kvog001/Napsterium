@@ -9,7 +9,6 @@ import SwiftUI
 import AVKit
 
 struct AudioPlayerView: View {
-  @State var value : Float = 0
   @ObservedObject var audioPlayerViewModel: AudioPlayerViewModel
   
   init(audioPlayerViewModel: AudioPlayerViewModel) {
@@ -20,27 +19,14 @@ struct AudioPlayerView: View {
     VStack(spacing: 2) {
       // MARK: Image, title, play button, forward button
       HStack(spacing: 15) {
-        if let selectedSong = audioPlayerViewModel.currentSong {
-          ThumbnailView(thumbnail: selectedSong.thumbnailURL)
-            .aspectRatio(contentMode: .fill)
-            .frame(width : 50, height : 50)
-            .cornerRadius(5)
-        } else {
-          ThumbnailView(thumbnail: audioPlayerViewModel.currentSong.thumbnailURL)
-            .aspectRatio(contentMode: .fill)
-            .frame(width : 50, height: 50)
-            .cornerRadius(5)
-        }
+        ThumbnailView(thumbnail: audioPlayerViewModel.currentSong.thumbnailURL)
+          .aspectRatio(contentMode: .fill)
+          .frame(width : 50, height: 50)
+          .cornerRadius(5)
         
-        if let selectedSong = audioPlayerViewModel.currentSong {
-          Text(selectedSong.title)
-            .lineLimit(1)
-            .font(.callout)
-        } else {
-          Text(audioPlayerViewModel.currentSong.title)
-            .lineLimit(1)
-            .font(.callout)
-        }
+        Text(audioPlayerViewModel.currentSong.title)
+          .lineLimit(1)
+          .font(.callout)
         
         Spacer(minLength: 0)
         
@@ -68,20 +54,20 @@ struct AudioPlayerView: View {
       .padding(.horizontal)
       
       // MARK: Progress bar of the playing song
-      ProgressView(value: value, total: Float(audioPlayerViewModel.currentSong.duration))
+      ProgressView(value: audioPlayerViewModel.value, total: Float(audioPlayerViewModel.currentSong.duration))
         .progressViewStyle(LinearProgressViewStyle())
         .tint(.white)
         .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
         .onAppear {
           Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             if audioPlayerViewModel.isPlaying {
-              self.value += 1
+              self.audioPlayerViewModel.value += 1
             }
           }
         }
-        .onReceive(audioPlayerViewModel.$currentSong) { _ in
-          self.value = 0
-        }
+//        .onReceive(audioPlayerViewModel.$currentSong) { _ in
+//          self.audi = 0
+//        }
     }
     .frame(maxHeight: 80)
     .background(
