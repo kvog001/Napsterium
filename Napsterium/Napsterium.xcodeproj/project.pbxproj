@@ -13,7 +13,6 @@
 		AA1B555A29E348E5005EF7BE /* GoogleAPIClientForREST_YouTube in Frameworks */ = {isa = PBXBuildFile; productRef = AA1B555929E348E5005EF7BE /* GoogleAPIClientForREST_YouTube */; };
 		AA1B9E1929DF43C100E44EBF /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B9E1829DF43C100E44EBF /* AudioPlayerView.swift */; };
 		AA4B421329E878030058D939 /* AudioPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4B421229E878030058D939 /* AudioPlayerViewModel.swift */; };
-		AA4B421529E8BC450058D939 /* SelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4B421429E8BC450058D939 /* SelectionViewModel.swift */; };
 		AA946BD929A4F31900D04463 /* NapsteriumApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BD829A4F31900D04463 /* NapsteriumApp.swift */; };
 		AA946BDB29A4F31900D04463 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA946BDA29A4F31900D04463 /* ContentView.swift */; };
 		AA946BDD29A4F31B00D04463 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA946BDC29A4F31B00D04463 /* Assets.xcassets */; };
@@ -35,7 +34,6 @@
 		AA1B554929E2D209005EF7BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AA1B9E1829DF43C100E44EBF /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		AA4B421229E878030058D939 /* AudioPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerViewModel.swift; sourceTree = "<group>"; };
-		AA4B421429E8BC450058D939 /* SelectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionViewModel.swift; sourceTree = "<group>"; };
 		AA946BD529A4F31900D04463 /* Napsterium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Napsterium.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA946BD829A4F31900D04463 /* NapsteriumApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NapsteriumApp.swift; sourceTree = "<group>"; };
 		AA946BDA29A4F31900D04463 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -132,7 +130,6 @@
 			children = (
 				AA946BF329A4F5C600D04463 /* YouTubeService.swift */,
 				AA1B554129E03CD6005EF7BE /* SongManager.swift */,
-				AA4B421429E8BC450058D939 /* SelectionViewModel.swift */,
 				AA1B554729E0EFE7005EF7BE /* AudioPlayerDelegate.swift */,
 				AA4B421229E878030058D939 /* AudioPlayerViewModel.swift */,
 			);
@@ -239,7 +236,6 @@
 				AA946BEC29A4F38A00D04463 /* SongListView.swift in Sources */,
 				AA1B554229E03CD6005EF7BE /* SongManager.swift in Sources */,
 				AA946BEE29A4F39D00D04463 /* SongRowView.swift in Sources */,
-				AA4B421529E8BC450058D939 /* SelectionViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

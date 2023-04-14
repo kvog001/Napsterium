@@ -11,7 +11,6 @@ struct VideoListView: View {
   @State private var query = ""
   @ObservedObject var songRepository: SongRepository
   @StateObject private var youTubeService = YouTubeService()
-  @StateObject private var selectionVM = SelectionViewModel()
   
   var body: some View {
     VStack {
@@ -40,11 +39,11 @@ struct VideoListView: View {
           ForEach(youTubeService.results) { video in
             VideoRowView(
               video: video,
-              isExpanded: selectionVM.selection.contains(video.id),
+              isExpanded: youTubeService.selectedResultId == video.id,
               songRepository: songRepository
             )
               .onTapGesture {
-                selectionVM.selectOrDeselect(videoId: video.id)
+                youTubeService.selectedResultId = video.id
               }
           }
         } header: {

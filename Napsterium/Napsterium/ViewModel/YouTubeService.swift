@@ -11,6 +11,8 @@ import GoogleAPIClientForREST_YouTube
 
 class YouTubeService: ObservableObject {
   @Published var results: [Video] = []
+  @Published var selectedResultId: String = ""
+  
   private let service = GTLRYouTubeService()
   
   func search(q: String) {
