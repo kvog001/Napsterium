@@ -23,10 +23,10 @@ struct VideoRowView: View {
         
         VStack(spacing: 20) {
           Text(video.title)
-            .lineLimit(2)
-            .font(.body)
-          Text("\(video.views) views . \(video.duration)")
-            .font(.caption2)
+            .lineLimit(3)
+            .font(.subheadline)
+          Text("\(video.views) views · \(video.duration)")
+            .font(.footnote)
         }
       }
       

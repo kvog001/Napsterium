@@ -45,18 +45,27 @@ class YouTubeService: ObservableObject {
             let videos = videoResult.items ?? []
             for video in searchResult.items ?? [] {
               if let videoData = videos.first(where: { $0.identifier == video.identifier?.videoId }),
-                 let duration = videoData.contentDetails?.duration,
-                 let viewCount = videoData.statistics?.viewCount {
+                 let duration = videoData.contentDetails?.duration, let viewCount = videoData.statistics?.viewCount {
                 let videoId = video.identifier?.videoId ?? ""
-                let title = video.snippet?.title ?? ""
+                var videoTitle = video.snippet?.title ?? ""
+                if let title = videoTitle.data(using: .utf8) {
+                  let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
+                    .documentType: NSAttributedString.DocumentType.html,
+                    .characterEncoding: String.Encoding.utf8.rawValue
+                  ]
+                  if let attributedString = try? NSAttributedString(data: title, options: options, documentAttributes: nil) {
+                    let convertedTitle = attributedString.string
+                    videoTitle = convertedTitle
+                  }
+                }
+
                 let thumbnailUrl = video.snippet?.thumbnails?.defaultProperty?.url ?? ""
                 let youtubeUrl = "https://www.youtube.com/watch?v=\(videoId)"
-//                print("\(title) - \(videoId) - \(thumbnailUrl) - \(youtubeUrl) - \(duration) - \(viewCount)")
                 
                 let viewsString = self.viewsString(fromViewCount: viewCount)
                 let durationString = self.durationString(fromISO8601Duration: duration)
                 let result = Video(id: videoId,
-                                   title: title,
+                                   title: videoTitle,
                                    views: "\(viewsString)",
                                    duration: "\(durationString)",
                                    youtubeURL: youtubeUrl,
