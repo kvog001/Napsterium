@@ -48,6 +48,7 @@ class YouTubeService: ObservableObject {
                  let duration = videoData.contentDetails?.duration, let viewCount = videoData.statistics?.viewCount {
                 let videoId = video.identifier?.videoId ?? ""
                 var videoTitle = video.snippet?.title ?? ""
+                /// convert HTML entities to their corresponding characters e.g. `&#39;` --> `'`
                 if let title = videoTitle.data(using: .utf8) {
                   let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
                     .documentType: NSAttributedString.DocumentType.html,
