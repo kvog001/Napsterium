@@ -20,8 +20,8 @@ class AudioPlayerViewModel: ObservableObject {
   private let audioPlayerDelegate = AudioPlayerDelegate()
   
   init(songRepository: SongRepository) {
-    if let lastPlayedSongData = UserDefaults.standard.data(forKey: "lastPlayedSong"),
-       let lastPlayedSong = try? PropertyListDecoder().decode(Song.self, from: lastPlayedSongData) {
+    if let lastPlayedSongId = UserDefaults.standard.string(forKey: "lastPlayedSong"),
+       let lastPlayedSong = SongManager.shared.loadSong(withId: lastPlayedSongId) {
       do {
         audioPlayer = try AVAudioPlayer(data: lastPlayedSong.mp3Data)
 //        audioPlayer?.prepareToPlay()
@@ -67,7 +67,9 @@ class AudioPlayerViewModel: ObservableObject {
       audioPlayer?.play()
       isPlaying = true
       audioPlayer?.delegate = audioPlayerDelegate
-      audioPlayerDelegate.songFinishedPlaying = {
+      audioPlayerDelegate.songFinishedPlaying = { [weak self] in
+        guard let self = self else { return } // Unwrap weak self to avoid nil reference
+
         self.isPlaying = false
         self.value = 0
         if self.replay {
@@ -81,10 +83,7 @@ class AudioPlayerViewModel: ObservableObject {
       }
       
       // store song to user defaults // TODO: move this to onPhaseChange/onSceneChange
-      let encoder = PropertyListEncoder()
-      if let encoded = try? encoder.encode(song) {
-        UserDefaults.standard.set(encoded, forKey: "lastPlayedSong")
-      }
+      UserDefaults.standard.set(song.id, forKey: "lastPlayedSong")
     } catch {
       print("Error playing audio: \(error.localizedDescription)")
     }
