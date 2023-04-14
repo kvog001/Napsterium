@@ -7,6 +7,7 @@
 
 import AVKit
 import Combine
+import SwiftUI
 
 class AudioPlayerViewModel: ObservableObject {
   @Published var replay = false
@@ -14,10 +15,11 @@ class AudioPlayerViewModel: ObservableObject {
   @Published var isPlaying = false
   @Published var currentSong: Song
   @Published var audioPlayer: AVAudioPlayer?
+  @ObservedObject var songRepository: SongRepository
   
   private let audioPlayerDelegate = AudioPlayerDelegate()
   
-  init() {
+  init(songRepository: SongRepository) {
     if let lastPlayedSongData = UserDefaults.standard.data(forKey: "lastPlayedSong"),
        let lastPlayedSong = try? PropertyListDecoder().decode(Song.self, from: lastPlayedSongData) {
       do {
@@ -30,10 +32,7 @@ class AudioPlayerViewModel: ObservableObject {
     } else {
       currentSong = SongRepository.sampleSongs.first!
     }
-  }
-  
-  func selectSong(_ song: Song) {
-    updateAudioPlayer(with: song)
+    self.songRepository = songRepository
   }
   
   func replayAudio() {
@@ -73,6 +72,11 @@ class AudioPlayerViewModel: ObservableObject {
         self.value = 0
         if self.replay {
           self.playAudio()
+        } else {
+          // play next song
+          if let nextSong = self.songRepository.getNextSongAfter(song: self.currentSong) {
+            self.updateAudioPlayer(with: nextSong)
+          }
         }
       }
       

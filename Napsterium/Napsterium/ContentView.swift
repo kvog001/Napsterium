@@ -9,12 +9,17 @@ import SwiftUI
 
 struct ContentView: View {
   @State private var tabSelection = 1
-  @StateObject private var songRepository = SongRepository()
-  @StateObject private var audioPlayerViewModel = AudioPlayerViewModel()
+  @StateObject private var songRepository: SongRepository
+  @StateObject private var audioPlayerViewModel: AudioPlayerViewModel
   
   init() {
     UITabBar.appearance().barTintColor = .yellow
     UITabBar.appearance().backgroundColor = .yellow
+    
+    // source: https://stackoverflow.com/questions/64291745/initialize-stateobject-with-another-stateobject
+    let songRepository = SongRepository()
+    _songRepository = StateObject(wrappedValue: songRepository)
+    _audioPlayerViewModel = StateObject(wrappedValue: AudioPlayerViewModel(songRepository: songRepository))
   }
   
   var body: some View {

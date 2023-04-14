@@ -56,7 +56,7 @@ struct SongListView: View {
           }
           .padding(EdgeInsets(top: 10, leading: 7, bottom: 0, trailing: 7))
           .onTapGesture {
-            audioPlayerViewModel.selectSong(song)
+            audioPlayerViewModel.updateAudioPlayer(with: song)
           }
           .onLongPressGesture(minimumDuration: 0.5, maximumDistance: 10) {
             print("onLongPress detected - todo")
@@ -85,6 +85,6 @@ struct SongListView: View {
 
 struct SongListView_Previews: PreviewProvider {
   static var previews: some View {
-    SongListView(songRepository: SongRepository(), audioPlayerViewModel: AudioPlayerViewModel())
+    SongListView(songRepository: SongRepository(), audioPlayerViewModel: AudioPlayerViewModel(songRepository: SongRepository()))
   }
 }

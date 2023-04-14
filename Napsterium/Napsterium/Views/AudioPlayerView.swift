@@ -21,7 +21,7 @@ struct AudioPlayerView: View {
       HStack(spacing: 15) {
         ThumbnailView(thumbnail: audioPlayerViewModel.currentSong.thumbnailURL)
           .aspectRatio(contentMode: .fill)
-          .frame(width : 50, height: 50)
+          .frame(width : 47, height: 47)
           .cornerRadius(5)
         
         Text(audioPlayerViewModel.currentSong.title)
@@ -83,6 +83,6 @@ struct AudioPlayerView: View {
 
 struct AudioPlayerView_Previews: PreviewProvider {
   static var previews: some View {
-    AudioPlayerView(audioPlayerViewModel: AudioPlayerViewModel())
+    AudioPlayerView(audioPlayerViewModel: AudioPlayerViewModel(songRepository: SongRepository()))
   }
 }

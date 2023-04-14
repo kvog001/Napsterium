@@ -22,6 +22,16 @@ class SongRepository: ObservableObject {
     songs.sorted(by: { $0.dateAdded > $1.dateAdded })
   }
   
+  func getNextSongAfter(song: Song) -> Song? {
+    let sortedSongs = sortedSongsByDate
+    let currentIndex = sortedSongs.firstIndex(of: song)
+    if let currIndex = currentIndex {
+      return sortedSongs[(currIndex + 1) % sortedSongs.count]
+    } else {
+      return nil
+    }
+  }
+  
   func addSong(_ newSong: Song) {
     if songs.contains(where: { $0.id == newSong.id }) {
       print("song is already in the playlist") //TODO: check to not download twice beforehand
