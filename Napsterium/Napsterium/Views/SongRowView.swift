@@ -15,8 +15,16 @@ struct SongRowView: View {
   
   var body: some View {
     HStack {
-      ThumbnailView(thumbnail: song.thumbnailURL)
-        .frame(width: 55, height: 55, alignment: .leading)
+      ZStack {
+        ThumbnailView(thumbnail: song.thumbnailURL)
+          
+        if !song.isDataLoaded {
+          ProgressView()
+            .scaleEffect(1.0, anchor: .center)
+            .progressViewStyle(CircularProgressViewStyle(tint: .yellow))
+        }
+      }
+      .frame(width: 55, height: 55, alignment: .leading)
       Text(song.title)
         .lineLimit(2)
         .font(.body)

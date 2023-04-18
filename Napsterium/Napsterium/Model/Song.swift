@@ -12,13 +12,19 @@ import Foundation
 struct Song: Identifiable, Codable, Equatable {
   let id: String
   let title: String
-  let mp3Data: Data
+  let mp3Data: Data?
   let duration: Int
   let dateAdded: Date
   var thumbnailURL: String
+  var isDataLoaded = false
   
   static func == (lhs: Song, rhs: Song) -> Bool {
     return lhs.id == rhs.id
+                && lhs.title == rhs.title
+                && lhs.duration == rhs.duration
+                && lhs.dateAdded == rhs.dateAdded
+                && lhs.thumbnailURL == rhs.thumbnailURL
+                && lhs.isDataLoaded == rhs.isDataLoaded
   }
 }
 

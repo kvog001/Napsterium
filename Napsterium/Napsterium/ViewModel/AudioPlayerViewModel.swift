@@ -23,7 +23,9 @@ class AudioPlayerViewModel: ObservableObject {
     if let lastPlayedSongId = UserDefaults.standard.string(forKey: "lastPlayedSong"),
        let lastPlayedSong = SongManager.shared.loadSong(withId: lastPlayedSongId) {
       do {
-        audioPlayer = try AVAudioPlayer(data: lastPlayedSong.mp3Data)
+        if let mp3Data = lastPlayedSong.mp3Data {
+          audioPlayer = try AVAudioPlayer(data: mp3Data)
+        }
 //        audioPlayer?.prepareToPlay()
       } catch {
         print("Could not create audio player from last played song!")
@@ -62,8 +64,11 @@ class AudioPlayerViewModel: ObservableObject {
       audioPlayer?.pause()
       isPlaying = false
     }
+    guard let mp3Data = song.mp3Data else {
+      return
+    }
     do {
-      audioPlayer = try AVAudioPlayer(data: song.mp3Data)
+      audioPlayer = try AVAudioPlayer(data: mp3Data)
       audioPlayer?.play()
       isPlaying = true
       audioPlayer?.delegate = audioPlayerDelegate

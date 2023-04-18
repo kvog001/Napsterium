@@ -47,7 +47,25 @@ class SongRepository: ObservableObject {
     songManager.deleteSong(song)
   }
   
+  func updateSong(index: Array<Song>.Index, newSong: Song) {
+    self.songs[index] = newSong
+    songManager.saveSong(newSong)
+  }
+  
   func downloadSong(songMetadata: SongMetadata) {
+    // Create a song object without mp3Data
+    let songWithoutData = Song(
+        id: songMetadata.id,
+        title: songMetadata.title,
+        mp3Data: nil,
+        duration: 0,
+        dateAdded: Date(),
+        thumbnailURL: songMetadata.thumbnailURL
+    )
+    DispatchQueue.main.async {
+      self.addSong(songWithoutData)
+    }
+    
     guard let url = URL(string: "https://kvogli.xyz:443/helloworld") else {
       print("Invalid URL")
       return
@@ -67,6 +85,7 @@ class SongRepository: ObservableObject {
         print("Error: \(error.localizedDescription)")
       } else if let data = data, let response = response as? HTTPURLResponse {
         print("Response status code: \(response.statusCode)")
+        // TODO: handle status codes != 200
         
         let durationInSeconds = self.calcDurationInSeconds(fromTimeString: songMetadata.duration)
         print("saving song with duration \(durationInSeconds)")
@@ -76,9 +95,13 @@ class SongRepository: ObservableObject {
                         mp3Data: data,
                         duration: durationInSeconds,
                         dateAdded: Date(),
-                        thumbnailURL: songMetadata.thumbnailURL)
-        DispatchQueue.main.async {
-          self.addSong(song)
+                        thumbnailURL: songMetadata.thumbnailURL,
+                        isDataLoaded: true)
+        
+        if let index = self.songs.firstIndex(where: { $0.id == song.id }) {
+            DispatchQueue.main.async {
+              self.updateSong(index: index, newSong: song)
+            }
         }
       }
     }

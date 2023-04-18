@@ -56,7 +56,12 @@ struct SongListView: View {
           }
           .padding(EdgeInsets(top: 10, leading: 7, bottom: 0, trailing: 7))
           .onTapGesture {
-            audioPlayerViewModel.updateAudioPlayer(with: song)
+            if song.isDataLoaded {
+              audioPlayerViewModel.updateAudioPlayer(with: song)
+            } else {
+              print("The song is being downloaded!")
+              //TODO: show an Alert
+            }
           }
           .onLongPressGesture(minimumDuration: 0.5, maximumDistance: 10) {
             print("onLongPress detected - todo")
